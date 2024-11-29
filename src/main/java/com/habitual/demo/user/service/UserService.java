@@ -28,7 +28,7 @@ public interface UserService {
 
     CommonResponse selectByPage(UserPageDto input);
 
-    CommonResponse personalCenter();
+    CommonResponse userPersonal();
 
     CommonResponse dropDownList();
 

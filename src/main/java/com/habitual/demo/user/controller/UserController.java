@@ -93,9 +93,9 @@ public class UserController {
     /**
      * 个人中心页
      */
-    @GetMapping("personalCenter")
-    public CommonResponse personalCenter() {
-        return userService.personalCenter();
+    @GetMapping("userPersonal")
+    public CommonResponse userPersonal() {
+        return userService.userPersonal();
     }
 
     /**

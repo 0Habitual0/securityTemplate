@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommonResponse personalCenter() {
+    public CommonResponse userPersonal() {
         UserEntity userEntity = userRepository.findByUsername(UserContext.getUsername());
         userEntity.setPassword(null);
         return CommonResponse.success(userEntity);
