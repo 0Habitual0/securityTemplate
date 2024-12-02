@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(existingUser.getId());
         userInfo.setUsername(existingUser.getUsername());
-        userInfo.setNickname(existingUser.getNickname());
+        userInfo.setNickname(existingUser.getName());
         return CommonResponse.success(jwtTokenUtil.getToken(userInfo));
     }
 
@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
     public CommonResponse dropDownList() {
         List<UserEntity> healthDataEntityList = userRepository.findAll();
         List<UserDropDownListDto> userDTOList = healthDataEntityList.stream()
-                .map(user -> new UserDropDownListDto(user.getId(), user.getUsername(), user.getNickname()))
+                .map(user -> new UserDropDownListDto(user.getId(), user.getUsername(), user.getName()))
                 .toList();
         return CommonResponse.success(userDTOList);
     }

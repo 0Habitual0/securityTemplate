@@ -10,13 +10,13 @@ import org.hibernate.annotations.Comment;
 import java.io.Serial;
 
 /**
- * 实体类 酒店客房
+ * 实体类 酒店住宿
  */
 @Getter
 @Setter
 @Entity
 @Table(name = "hotel")
-@Comment("酒店客房")
+@Comment("酒店住宿")
 public class HotelEntity extends BaseEntity {
 
     /**

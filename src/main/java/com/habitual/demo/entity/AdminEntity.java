@@ -1,4 +1,4 @@
-package com.habitual.demo.user.entity;
+package com.habitual.demo.entity;
 
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Column;
@@ -12,14 +12,14 @@ import org.hibernate.annotations.Comment;
 import java.io.Serial;
 
 /**
- * 实体类 用户
+ * 实体类 管理员
  */
 @Getter
 @Setter
 @Entity
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
-@Comment("用户")
-public class UserEntity extends BaseEntity {
+@Table(name = "admin", uniqueConstraints = @UniqueConstraint(columnNames = "adminname"))
+@Comment("管理员")
+public class AdminEntity extends BaseEntity {
 
     /**
      * 序列化版本号
@@ -32,7 +32,7 @@ public class UserEntity extends BaseEntity {
      */
     @Column(unique = true, nullable = false)
     @Comment("登录账号")
-    private String username;
+    private String adminname;
 
     /**
      * 登录密码

@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE " +
             "(:username IS NULL OR u.username LIKE %:username%) AND " +
-            "(:nickname IS NULL OR u.nickname LIKE %:nickname%) AND " +
+            "(:nickname IS NULL OR u.name LIKE %:nickname%) AND " +
             "(:sex IS NULL OR u.sex = :sex) AND " +
             "(:age IS NULL OR u.age = :age) AND " +
             "(:email IS NULL OR u.email LIKE %:email%) AND " +

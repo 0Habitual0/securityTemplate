@@ -49,4 +49,9 @@ public class TouristGuideEntity extends BaseEntity {
     @Comment("攻略图片")
     private String image;
 
+    /**
+     * 攻略类型
+     */
+    @Comment("攻略类型")
+    private String type;
 }

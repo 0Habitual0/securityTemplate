@@ -10,14 +10,14 @@ import org.hibernate.annotations.Comment;
 import java.io.Serial;
 
 /**
- * 实体类 订单
+ * 实体类 退单
  */
 @Getter
 @Setter
 @Entity
-@Table(name = "real_order")
-@Comment("订单")
-public class OrderEntity extends BaseEntity {
+@Table(name = "back_order")
+@Comment("退单")
+public class BackOrderEntity extends BaseEntity {
 
     /**
      * 序列化版本号
