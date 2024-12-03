@@ -4,13 +4,16 @@ import com.habitual.demo.common.entity.CommonResponse;
 import com.habitual.demo.common.entity.UserInfo;
 import com.habitual.demo.common.security.context.UserContext;
 import com.habitual.demo.common.utils.JwtTokenUtil;
+import com.habitual.demo.user.entity.AdminEntity;
 import com.habitual.demo.user.entity.UserEntity;
 import com.habitual.demo.user.entity.dto.UserChangePasswordDto;
 import com.habitual.demo.user.entity.dto.UserDropDownListDto;
 import com.habitual.demo.user.entity.dto.UserInfoDto;
 import com.habitual.demo.user.entity.dto.UserPageDto;
+import com.habitual.demo.user.repository.AdminRepository;
 import com.habitual.demo.user.repository.UserRepository;
 import com.habitual.demo.user.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -79,30 +85,57 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommonResponse login(String username, String password) {
-        // 检查登录账号密码是否正确
-        UserEntity existingUser = userRepository.findByUsernameAndPassword(username, password);
-        if (existingUser == null) {
-            return CommonResponse.fail("用户名或密码错误");
+    public CommonResponse login(String username, String password, String role) {
+        if (Objects.equals(role, "管理员")) {
+            // 检查登录账号密码是否正确
+            AdminEntity existingUser = adminRepository.findByAdminnameAndPassword(username, password);
+            if (existingUser == null) {
+                return CommonResponse.fail("用户名或密码错误");
+            }
+            if (Objects.equals(existingUser.getStatus(), 1L)) {
+                return CommonResponse.fail("账户已被禁用，请联系管理员");
+            }
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(existingUser.getId());
+            userInfo.setUsername(existingUser.getAdminname());
+            userInfo.setNickname(existingUser.getName());
+            userInfo.setRole(existingUser.getRole());
+            return CommonResponse.success(jwtTokenUtil.getToken(userInfo));
+        } else {
+            // 检查登录账号密码是否正确
+            UserEntity existingUser = userRepository.findByUsernameAndPassword(username, password);
+            if (existingUser == null) {
+                return CommonResponse.fail("用户名或密码错误");
+            }
+            if (Objects.equals(existingUser.getStatus(), 1L)) {
+                return CommonResponse.fail("账户已被禁用，请联系管理员");
+            }
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(existingUser.getId());
+            userInfo.setUsername(existingUser.getUsername());
+            userInfo.setNickname(existingUser.getName());
+            userInfo.setRole(existingUser.getRole());
+            return CommonResponse.success(jwtTokenUtil.getToken(userInfo));
         }
-        if (Objects.equals(existingUser.getStatus(), 1L)) {
-            return CommonResponse.fail("账户已被禁用，请联系管理员");
-        }
-        UserInfo userInfo = new UserInfo();
-        userInfo.setId(existingUser.getId());
-        userInfo.setUsername(existingUser.getUsername());
-        userInfo.setNickname(existingUser.getName());
-        return CommonResponse.success(jwtTokenUtil.getToken(userInfo));
     }
 
     @Override
     public CommonResponse info() {
-        UserEntity userEntity = userRepository.findByUsername(UserContext.getUsername());
-        UserInfoDto info = new UserInfoDto();
-        info.setAvatar(userEntity.getAvatar());
-        info.setName(userEntity.getUsername());
-        info.setRoles(Collections.singletonList(userEntity.getRole()));
-        return CommonResponse.success(info);
+        if (Objects.equals(UserContext.getRole(), "管理员")) {
+            AdminEntity userEntity = adminRepository.findByAdminname(UserContext.getUsername());
+            UserInfoDto info = new UserInfoDto();
+            info.setAvatar(userEntity.getAvatar());
+            info.setName(userEntity.getAdminname());
+            info.setRoles(Collections.singletonList(userEntity.getRole()));
+            return CommonResponse.success(info);
+        } else {
+            UserEntity userEntity = userRepository.findByUsername(UserContext.getUsername());
+            UserInfoDto info = new UserInfoDto();
+            info.setAvatar(userEntity.getAvatar());
+            info.setName(userEntity.getUsername());
+            info.setRoles(Collections.singletonList(userEntity.getRole()));
+            return CommonResponse.success(info);
+        }
     }
 
     @Override
@@ -113,51 +146,99 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResponse save(UserEntity input) {
-        UserEntity existingUser = userRepository.findByUsername(input.getUsername());
-        if (existingUser != null && !Objects.equals(existingUser.getId(), input.getId())) {
-            return CommonResponse.fail("登录账号已存在");
+        if (Objects.equals(input.getRole(), "管理员")) {
+            AdminEntity existingUser = adminRepository.findByAdminname(input.getUsername());
+            if (existingUser != null && !Objects.equals(existingUser.getId(), input.getId())) {
+                return CommonResponse.fail("登录账号已存在");
+            }
+            if (input.getId() != null) {
+                // 更新操作时不更新密码
+                adminRepository.findById(input.getId()).ifPresent(userToUpdate -> input.setPassword(userToUpdate.getPassword()));
+                // 退出登录
+                jwtTokenUtil.deleteToken(input.getUsername());
+            }
+            AdminEntity adminEntity = new AdminEntity();
+            BeanUtils.copyProperties(input, adminEntity);
+            adminEntity.setAdminname(input.getUsername());
+            adminRepository.save(adminEntity);
+            return CommonResponse.success("保存成功");
+        } else {
+            UserEntity existingUser = userRepository.findByUsername(input.getUsername());
+            if (existingUser != null && !Objects.equals(existingUser.getId(), input.getId())) {
+                return CommonResponse.fail("登录账号已存在");
+            }
+            if (input.getId() != null) {
+                // 更新操作时不更新密码
+                userRepository.findById(input.getId()).ifPresent(userToUpdate -> input.setPassword(userToUpdate.getPassword()));
+                // 退出登录
+                jwtTokenUtil.deleteToken(input.getUsername());
+            }
+            userRepository.save(input);
+            return CommonResponse.success("保存成功");
         }
-        if (input.getId() != null) {
-            // 更新操作时不更新密码
-            userRepository.findById(input.getId()).ifPresent(userToUpdate -> input.setPassword(userToUpdate.getPassword()));
-            // 退出登录
-            jwtTokenUtil.deleteToken(input.getUsername());
-        }
-        userRepository.save(input);
-        return CommonResponse.success("保存成功");
     }
 
     @Override
-    public CommonResponse delete(Long id) {
-        userRepository.deleteById(id);
-        return CommonResponse.success("删除成功");
+    public CommonResponse delete(Long id, String role) {
+        if (Objects.equals(role, "管理员")) {
+            adminRepository.deleteById(id);
+            return CommonResponse.success("删除成功");
+        } else {
+            userRepository.deleteById(id);
+            return CommonResponse.success("删除成功");
+        }
     }
 
     @Override
     public CommonResponse selectByPage(UserPageDto input) {
-        Pageable pageable = PageRequest.of(input.getPageNum() - 1, input.getPageSize());
-        Page<UserEntity> result = userRepository.findByCriteria(
-                input.getUsername(),
-                input.getNickName(),
-                input.getSex(),
-                input.getAge(),
-                input.getEmail(),
-                input.getTel(),
-                input.getRole(),
-                input.getStatus(),
-                input.getCreateBy(),
-                input.getUpdateBy(),
-                input.getRemark(),
-                pageable);
-        result.forEach(user -> user.setPassword(null));
-        return CommonResponse.success(new PagedModel<>(result));
+        if (Objects.equals(input.getRole(), "管理员")) {
+            Pageable pageable = PageRequest.of(input.getPageNum() - 1, input.getPageSize());
+            Page<AdminEntity> result = adminRepository.findByCriteria(
+                    input.getUsername(),
+                    input.getName(),
+                    input.getSex(),
+                    input.getAge(),
+                    input.getEmail(),
+                    input.getTel(),
+                    input.getRole(),
+                    input.getStatus(),
+                    input.getCreateBy(),
+                    input.getUpdateBy(),
+                    input.getRemark(),
+                    pageable);
+            result.forEach(user -> user.setPassword(null));
+            return CommonResponse.success(new PagedModel<>(result));
+        } else {
+            Pageable pageable = PageRequest.of(input.getPageNum() - 1, input.getPageSize());
+            Page<UserEntity> result = userRepository.findByCriteria(
+                    input.getUsername(),
+                    input.getName(),
+                    input.getSex(),
+                    input.getAge(),
+                    input.getEmail(),
+                    input.getTel(),
+                    input.getRole(),
+                    input.getStatus(),
+                    input.getCreateBy(),
+                    input.getUpdateBy(),
+                    input.getRemark(),
+                    pageable);
+            result.forEach(user -> user.setPassword(null));
+            return CommonResponse.success(new PagedModel<>(result));
+        }
     }
 
     @Override
     public CommonResponse userPersonal() {
-        UserEntity userEntity = userRepository.findByUsername(UserContext.getUsername());
-        userEntity.setPassword(null);
-        return CommonResponse.success(userEntity);
+        if (Objects.equals(UserContext.getRole(), "管理员")) {
+            AdminEntity userEntity = adminRepository.findByAdminname(UserContext.getUsername());
+            userEntity.setPassword(null);
+            return CommonResponse.success(userEntity);
+        } else {
+            UserEntity userEntity = userRepository.findByUsername(UserContext.getUsername());
+            userEntity.setPassword(null);
+            return CommonResponse.success(userEntity);
+        }
     }
 
     @Override

@@ -25,4 +25,9 @@ public class UserInfo {
      */
     private String nickname;
 
+    /**
+     * 角色
+     */
+    private String role;
+
 }

@@ -16,7 +16,7 @@ public interface UserService {
 
     CommonResponse changePassword(UserChangePasswordDto input);
 
-    CommonResponse login(String username, String password);
+    CommonResponse login(String username, String password, String role);
 
     CommonResponse info();
 
@@ -24,7 +24,7 @@ public interface UserService {
 
     CommonResponse save(UserEntity input);
 
-    CommonResponse delete(Long id);
+    CommonResponse delete(Long id, String role);
 
     CommonResponse selectByPage(UserPageDto input);
 

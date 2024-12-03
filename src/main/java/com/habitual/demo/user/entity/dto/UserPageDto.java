@@ -9,7 +9,7 @@ public class UserPageDto {
 
     private String username;
 
-    private String nickName;
+    private String name;
 
     private String sex;
 

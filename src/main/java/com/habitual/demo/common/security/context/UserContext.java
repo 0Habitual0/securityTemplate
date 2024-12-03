@@ -33,6 +33,10 @@ public class UserContext {
         return getUser().getNickname();
     }
 
+    public static String getRole() {
+        return getUser().getRole();
+    }
+
     public static void clear() {
         userHolder.remove();
     }

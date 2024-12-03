@@ -1,4 +1,4 @@
-package com.habitual.demo.entity;
+package com.habitual.demo.user.entity;
 
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Column;

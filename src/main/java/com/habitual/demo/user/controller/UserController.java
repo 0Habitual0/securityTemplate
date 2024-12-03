@@ -47,7 +47,7 @@ public class UserController {
      */
     @PostMapping("login")
     public CommonResponse login(@RequestBody UserEntity userEntity) {
-        return userService.login(userEntity.getUsername(), userEntity.getPassword());
+        return userService.login(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRole());
     }
 
     /**
@@ -78,8 +78,8 @@ public class UserController {
      * 删除
      */
     @GetMapping("delete")
-    public CommonResponse delete(@RequestParam Long id) {
-        return userService.delete(id);
+    public CommonResponse delete(@RequestParam Long id, String role) {
+        return userService.delete(id, role);
     }
 
     /**
