@@ -25,3 +25,7 @@ server:
 system:
   custom:
     jwtSecretKey: u7ydpT2P3eVf6W8xN9sKrG4tQ1vZw5bA6hXmJkCcRfM
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
