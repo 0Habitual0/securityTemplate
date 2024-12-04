@@ -49,22 +49,24 @@
     <update id="update" parameterType="com.habitual.demo.scenicSpot.entity.ScenicSpotEntity">
         UPDATE scenic_spot
         <set>
-            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
-            create_time = #{createTime},
-            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-            update_time = #{updateTime},
-            <if test="remark != null and remark != ''">remark = #{remark},</if>
-            <if test="name != null and name != ''">name = #{name},</if>
-            <if test="type != null and type != ''">type = #{type},</if>
-            <if test="image != null and image != ''">image = #{image},</if>
-            <if test="level != null and level != ''">level = #{level},</if>
-            <if test="location != null and location != ''">location = #{location},</if>
-            <if test="price != null">price = #{price},</if>
-            <if test="stock != null">stock = #{stock},</if>
-            <if test="openTime != null and openTime != ''">open_time = #{openTime},</if>
-            <if test="precautions != null and precautions != ''">precautions = #{precautions},</if>
-            <if test="trafficGuide != null and trafficGuide != ''">traffic_guide = #{trafficGuide},</if>
-            <if test="introduce != null and introduce != ''">introduce = #{introduce}</if>
+            <trim suffixOverrides=",">
+                <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+                create_time = #{createTime},
+                <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+                update_time = #{updateTime},
+                <if test="remark != null and remark != ''">remark = #{remark},</if>
+                <if test="name != null and name != ''">name = #{name},</if>
+                <if test="type != null and type != ''">type = #{type},</if>
+                <if test="image != null and image != ''">image = #{image},</if>
+                <if test="level != null and level != ''">level = #{level},</if>
+                <if test="location != null and location != ''">location = #{location},</if>
+                <if test="price != null">price = #{price},</if>
+                <if test="stock != null">stock = #{stock},</if>
+                <if test="openTime != null and openTime != ''">open_time = #{openTime},</if>
+                <if test="precautions != null and precautions != ''">precautions = #{precautions},</if>
+                <if test="trafficGuide != null and trafficGuide != ''">traffic_guide = #{trafficGuide},</if>
+                <if test="introduce != null and introduce != ''">introduce = #{introduce},</if>
+            </trim>
         </set>
         WHERE id = #{id}
     </update>
@@ -103,7 +105,7 @@
             AND remark = #{remark}
         </if>
         ORDER BY create_time DESC
-        LIMIT #{pageNum}, #{pageSize}
+        LIMIT #{offset}, #{pageSize}
     </select>
 
 </mapper>

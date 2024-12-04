@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.habitual.demo.hotel.mapper.HotelMapper">
+
+    <insert id="insert" parameterType="com.habitual.demo.hotel.entity.HotelEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO hotel (
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            update_time,
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="image != null and image != ''">image,</if>
+            <if test="introduce != null and introduce != ''">introduce,</if>
+            <if test="location != null and location != ''">location,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="url != null and url != ''">url,</if>
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            #{createTime},
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            #{updateTime},
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="image != null and image != ''">#{image},</if>
+            <if test="introduce != null and introduce != ''">#{introduce},</if>
+            <if test="location != null and location != ''">#{location},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="tel != null and tel != ''">#{tel},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="url != null and url != ''">#{url},</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="com.habitual.demo.hotel.entity.HotelEntity">
+        UPDATE scenic_spot
+        <set>
+            <trim suffixOverrides=",">
+                <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+                create_time = #{createTime},
+                <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+                update_time = #{updateTime},
+                <if test="remark != null and remark != ''">remark = #{remark},</if>
+                <if test="image != null and image != ''">image = #{image},</if>
+                <if test="introduce != null and introduce != ''">introduce = #{introduce},</if>
+                <if test="location != null and location != ''">location = #{location},</if>
+                <if test="name != null and name != ''">name = #{name},</if>
+                <if test="tel != null and tel != ''">tel = #{tel},</if>
+                <if test="type != null and type != ''">type = #{type},</if>
+                <if test="url != null and url != ''">url = #{url},</if>
+            </trim>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM hotel
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getTotalCount">
+        SELECT COUNT(*) FROM hotel
+    </select>
+
+    <select id="selectByPage" parameterType="com.habitual.demo.hotel.entity.dto.HotelPageDto" resultType="com.habitual.demo.hotel.entity.HotelEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        image, introduce, location, name, tel, type, url
+        FROM hotel
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND name = #{name}
+        </if>
+        <if test="tel != null and tel != ''">
+            AND tel = #{tel}
+        </if>
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+        <if test="createBy != null and createBy != ''">
+            AND create_by = #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            AND update_by = #{updateBy}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND remark = #{remark}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+</mapper>

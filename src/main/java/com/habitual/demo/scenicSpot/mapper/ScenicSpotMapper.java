@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+/**
+ * 数据访问层Mybatis 景点门票
+ */
 @Mapper
 public interface ScenicSpotMapper {
 

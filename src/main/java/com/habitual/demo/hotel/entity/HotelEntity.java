@@ -1,4 +1,4 @@
-package com.habitual.demo.entity;
+package com.habitual.demo.hotel.entity;
 
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;

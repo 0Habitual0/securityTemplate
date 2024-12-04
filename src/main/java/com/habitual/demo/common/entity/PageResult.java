@@ -10,8 +10,6 @@ import java.util.List;
 public class PageResult<T> {
 
     private List<T> data;
-    private int current;
-    private int size;
     private int totalCount;
     private int pages;
 

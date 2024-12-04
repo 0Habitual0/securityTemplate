@@ -23,5 +23,7 @@ public class ScenicSpotPageDto {
 
     private int pageSize;
 
+    private int offset;
+
 }
 
