@@ -9,9 +9,15 @@ public class HotelPageDto {
 
     private String name;
 
+    private String type;
+
     private String tel;
 
-    private String type;
+    private String createBy;
+
+    private String updateBy;
+
+    private String remark;
 
     private int pageNum;
 

@@ -39,7 +39,7 @@
     </insert>
 
     <update id="update" parameterType="com.habitual.demo.hotel.entity.HotelEntity">
-        UPDATE scenic_spot
+        UPDATE hotel
         <set>
             <trim suffixOverrides=",">
                 <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
@@ -77,11 +77,11 @@
         <if test="name != null and name != ''">
             AND name = #{name}
         </if>
-        <if test="tel != null and tel != ''">
-            AND tel = #{tel}
-        </if>
         <if test="type != null and type != ''">
             AND type = #{type}
+        </if>
+        <if test="tel != null and tel != ''">
+            AND tel = #{tel}
         </if>
         <if test="createBy != null and createBy != ''">
             AND create_by = #{createBy}
