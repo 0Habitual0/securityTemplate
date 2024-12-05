@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.habitual.demo.comment.mapper.CommentMapper">
+
+    <insert id="insert" parameterType="com.habitual.demo.comment.entity.CommentEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment (
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            update_time,
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="businessId != null and businessId != ''">business_id,</if>
+            <if test="parentId != null and parentId != ''">parent_id,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            #{createTime},
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            #{updateTime},
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="businessId != null and businessId != ''">#{businessId},</if>
+            <if test="parentId != null and parentId != ''">#{parentId},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+        </trim>
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM comment
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getTotalCount">
+        SELECT COUNT(*) FROM comment
+        WHERE 1=1
+        <if test="businessId != null and businessId != ''">
+            AND business_id = #{businessId}
+        </if>
+    </select>
+
+    <select id="selectByPage" parameterType="com.habitual.demo.comment.entity.dto.CommentPageDto" resultType="com.habitual.demo.comment.entity.CommentEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        business_id, parent_id, type, user_id
+        FROM comment
+        WHERE 1=1
+        <if test="businessId != null and businessId != ''">
+            AND business_id = #{businessId}
+        </if>
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+        <if test="createBy != null and createBy != ''">
+            AND create_by = #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            AND update_by = #{updateBy}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND remark = #{remark}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+</mapper>
