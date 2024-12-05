@@ -1,6 +1,7 @@
 package com.habitual.demo.scenicSpot.controller;
 
 import com.habitual.demo.common.entity.CommonResponse;
+import com.habitual.demo.hotel.entity.dto.HotelPageDto;
 import com.habitual.demo.scenicSpot.entity.ScenicSpotEntity;
 import com.habitual.demo.scenicSpot.entity.dto.ScenicSpotPageDto;
 import com.habitual.demo.scenicSpot.service.ScenicSpotService;
@@ -39,6 +40,14 @@ public class ScenicSpotController {
     @PostMapping("selectByPage")
     public CommonResponse selectByPage(@RequestBody ScenicSpotPageDto input) {
         return scenicSpotService.selectByPage(input);
+    }
+
+    /**
+     * 收藏分页查询
+     */
+    @PostMapping("selectByPageCollect")
+    public CommonResponse selectByPageCollect(@RequestBody ScenicSpotPageDto input) {
+        return scenicSpotService.selectByPageCollect(input);
     }
 
 }

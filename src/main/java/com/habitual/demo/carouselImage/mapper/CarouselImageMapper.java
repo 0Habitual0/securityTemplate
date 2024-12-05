@@ -23,4 +23,6 @@ public interface CarouselImageMapper {
 
     List<CarouselImageEntity> selectByPage(CarouselImagePageDto input);
 
+    List<String> select();
+
 }

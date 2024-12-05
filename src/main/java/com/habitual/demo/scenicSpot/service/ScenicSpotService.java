@@ -15,4 +15,6 @@ public interface ScenicSpotService {
 
     CommonResponse selectByPage(ScenicSpotPageDto input);
 
+    CommonResponse selectByPageCollect(ScenicSpotPageDto input);
+
 }

@@ -59,6 +59,7 @@ public class CarouselImageServiceImpl implements CarouselImageService {
 
     @Override
     public CommonResponse select() {
-        return null;
+        return CommonResponse.success(carouselImageMapper.select());
     }
+
 }

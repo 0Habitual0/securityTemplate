@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.habitual.demo.collect.mapper.CollectMapper">
+
+    <insert id="insert" parameterType="com.habitual.demo.collect.entity.CollectEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO collect (
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            update_time,
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="businessId != null and businessId != ''">business_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="type != null and type != ''">type,</if>
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            #{createTime},
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            #{updateTime},
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="businessId != null and businessId != ''">#{businessId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="type != null and type != ''">#{type},</if>
+        </trim>
+        )
+    </insert>
+
+    <delete id="deleteByUserIdAndBusinessId">
+        DELETE FROM collect
+        WHERE user_id = #{userId}
+          AND business_id = #{businessId}
+    </delete>
+
+    <select id="selectByUserIdAndBusinessId" resultType="com.habitual.demo.collect.entity.CollectEntity">
+        SELECT * FROM collect
+        WHERE user_id = #{userId}
+          AND business_id = #{businessId}
+    </select>
+
+    <select id="deleteByType">
+        DELETE FROM collect
+        WHERE type = #{type}
+    </select>
+
+    <select id="getTotalCountByUserIdAndType">
+        SELECT COUNT(*) FROM collect
+        WHERE user_id = #{userId}
+          AND type = #{type}
+    </select>
+
+    <select id="selectByPageAndUserIdAndBusinessId" resultType="com.habitual.demo.collect.entity.CollectEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        business_id, type, user_id
+        FROM collect
+        WHERE 1=1
+          AND user_id = #{userId}
+          AND type = #{type}
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+</mapper>

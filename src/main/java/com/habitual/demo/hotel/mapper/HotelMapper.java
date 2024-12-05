@@ -22,4 +22,6 @@ public interface HotelMapper {
 
     List<HotelEntity> selectByPage(HotelPageDto input);
 
+    List<HotelEntity> selectByIdIn(List<Long> ids);
+
 }

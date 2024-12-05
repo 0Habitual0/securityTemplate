@@ -96,4 +96,16 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.hotel.entity.HotelEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        image, introduce, location, name, tel, type, url
+        FROM hotel
+        WHERE 1=1
+        AND id IN
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
 </mapper>

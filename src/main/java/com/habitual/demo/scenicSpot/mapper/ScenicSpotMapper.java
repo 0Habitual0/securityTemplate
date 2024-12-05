@@ -22,4 +22,6 @@ public interface ScenicSpotMapper {
 
     List<ScenicSpotEntity> selectByPage(ScenicSpotPageDto input);
 
+    List<ScenicSpotEntity> selectByIdIn(List<Long> ids);
+
 }

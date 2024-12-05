@@ -69,4 +69,11 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="select">
+        SELECT
+        url
+        FROM carousel_image
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>

@@ -41,4 +41,12 @@ public class HotelController {
         return hotelService.selectByPage(input);
     }
 
+    /**
+     * 收藏分页查询
+     */
+    @PostMapping("selectByPageCollect")
+    public CommonResponse selectByPageCollect(@RequestBody HotelPageDto input) {
+        return hotelService.selectByPageCollect(input);
+    }
+
 }
