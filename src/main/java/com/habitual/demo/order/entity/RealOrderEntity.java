@@ -1,4 +1,4 @@
-package com.habitual.demo.entity;
+package com.habitual.demo.order.entity;
 
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import java.io.Serial;
 @Entity
 @Table(name = "real_order")
 @Comment("订单")
-public class OrderEntity extends BaseEntity {
+public class RealOrderEntity extends BaseEntity {
 
     /**
      * 序列化版本号

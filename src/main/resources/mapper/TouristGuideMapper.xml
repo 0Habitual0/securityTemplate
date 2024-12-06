@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.habitual.demo.touristGuide.mapper.TouristGuideMapper">
+
+    <insert id="insert" parameterType="com.habitual.demo.touristGuide.entity.TouristGuideEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tourist_guide (
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            update_time,
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="context != null and context != ''">context,</if>
+            <if test="image != null and image != ''">image,</if>
+            <if test="type != null and type != ''">type,</if>
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            #{createTime},
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            #{updateTime},
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="context != null and context != ''">#{context},</if>
+            <if test="image != null and image != ''">#{image},</if>
+            <if test="type != null and type != ''">#{type},</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+        UPDATE tourist_guide
+        <set>
+            <trim suffixOverrides=",">
+                <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+                create_time = #{createTime},
+                <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+                update_time = #{updateTime},
+                <if test="remark != null and remark != ''">remark = #{remark},</if>
+                <if test="userId != null and userId != ''">user_id = #{userId},</if>
+                <if test="title != null and title != ''">title = #{title},</if>
+                <if test="context != null and context != ''">context = #{context},</if>
+                <if test="image != null and image != ''">image = #{image},</if>
+                <if test="type != null and type != ''">type = #{type},</if>
+            </trim>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tourist_guide
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getTotalCount">
+        SELECT COUNT(*) FROM tourist_guide
+    </select>
+
+    <select id="selectByPage" parameterType="com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        user_id, title, context, image, type
+        FROM tourist_guide
+        WHERE 1=1
+        <if test="title != null and title != ''">
+            AND title = #{title}
+        </if>
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+        <if test="createBy != null and createBy != ''">
+            AND create_by = #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            AND update_by = #{updateBy}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND remark = #{remark}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        user_id, title, context, image, type
+        FROM tourist_guide
+        WHERE 1=1
+        AND id IN
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

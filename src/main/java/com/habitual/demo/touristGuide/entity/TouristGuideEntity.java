@@ -1,4 +1,4 @@
-package com.habitual.demo.entity;
+package com.habitual.demo.touristGuide.entity;
 
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
