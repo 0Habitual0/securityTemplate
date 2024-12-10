@@ -84,4 +84,9 @@ public class TouristGuideServiceImpl implements TouristGuideService {
 
         return CommonResponse.success(result);
     }
+
+    @Override
+    public CommonResponse selectTypeList() {
+        return CommonResponse.success(touristGuideMapper.selectTypeList());
+    }
 }

@@ -51,6 +51,14 @@ public class ScenicSpotController {
     }
 
     /**
+     * 获取种类列表
+     */
+    @PostMapping("selectTypeList")
+    public CommonResponse selectTypeList() {
+        return scenicSpotService.selectTypeList();
+    }
+
+    /**
      * 首页推荐景点
      */
     @PostMapping("recommend")

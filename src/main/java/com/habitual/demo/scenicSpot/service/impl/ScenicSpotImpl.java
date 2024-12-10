@@ -89,6 +89,11 @@ public class ScenicSpotImpl implements ScenicSpotService {
     }
 
     @Override
+    public CommonResponse selectTypeList() {
+        return CommonResponse.success(scenicSpotMapper.selectTypeList());
+    }
+
+    @Override
     public CommonResponse recommend() {
         return CommonResponse.success(scenicSpotMapper.selectRandomFive());
     }

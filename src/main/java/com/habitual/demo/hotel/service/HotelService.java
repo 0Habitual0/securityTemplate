@@ -17,4 +17,6 @@ public interface HotelService {
 
     CommonResponse selectByPageCollect(HotelPageDto input);
 
+    CommonResponse selectTypeList();
+
 }

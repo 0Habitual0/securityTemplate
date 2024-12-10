@@ -17,4 +17,6 @@ public interface TouristRoutesService {
 
     CommonResponse selectByPageCollect(TouristRoutesPageDto input);
 
+    CommonResponse selectTypeList();
+
 }

@@ -49,4 +49,12 @@ public class TouristRoutesController {
         return touristRoutesService.selectByPageCollect(input);
     }
 
+    /**
+     * 获取种类列表
+     */
+    @PostMapping("selectTypeList")
+    public CommonResponse selectTypeList() {
+        return touristRoutesService.selectTypeList();
+    }
+
 }

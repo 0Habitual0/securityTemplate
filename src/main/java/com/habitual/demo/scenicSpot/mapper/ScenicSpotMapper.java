@@ -24,6 +24,8 @@ public interface ScenicSpotMapper {
 
     List<ScenicSpotEntity> selectByIdIn(List<Long> ids);
 
+    List<String> selectTypeList();
+
     List<ScenicSpotEntity> selectRandomFive();
 
 }

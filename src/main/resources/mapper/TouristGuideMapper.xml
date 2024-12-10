@@ -101,4 +101,8 @@
         </foreach>
     </select>
 
+    <select id="selectTypeList">
+        SELECT DISTINCT type FROM tourist_guide;
+    </select>
+
 </mapper>

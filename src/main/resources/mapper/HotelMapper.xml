@@ -110,4 +110,8 @@
         </foreach>
     </select>
 
+    <select id="selectTypeList">
+        SELECT DISTINCT type FROM hotel;
+    </select>
+
 </mapper>

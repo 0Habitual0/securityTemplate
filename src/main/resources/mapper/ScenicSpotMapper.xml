@@ -122,6 +122,10 @@
         </foreach>
     </select>
 
+    <select id="selectTypeList">
+        SELECT DISTINCT type FROM scenic_spot;
+    </select>
+
     <select id="selectRandomFive" resultType="com.habitual.demo.scenicSpot.entity.ScenicSpotEntity">
         SELECT * FROM scenic_spot ORDER BY RAND() LIMIT 5;
     </select>

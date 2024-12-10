@@ -24,4 +24,6 @@ public interface TouristGuideMapper {
 
     List<TouristGuideEntity> selectByIdIn(List<Long> ids);
 
+    List<String> selectTypeList();
+
 }

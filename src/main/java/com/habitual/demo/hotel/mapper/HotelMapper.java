@@ -24,4 +24,6 @@ public interface HotelMapper {
 
     List<HotelEntity> selectByIdIn(List<Long> ids);
 
+    List<String> selectTypeList();
+
 }

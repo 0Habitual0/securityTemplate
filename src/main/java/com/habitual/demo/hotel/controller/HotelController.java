@@ -49,4 +49,12 @@ public class HotelController {
         return hotelService.selectByPageCollect(input);
     }
 
+    /**
+     * 获取种类列表
+     */
+    @PostMapping("selectTypeList")
+    public CommonResponse selectTypeList() {
+        return hotelService.selectTypeList();
+    }
+
 }
