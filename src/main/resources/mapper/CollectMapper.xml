@@ -30,16 +30,18 @@
         )
     </insert>
 
-    <delete id="deleteByUserIdAndBusinessId">
+    <delete id="deleteByUserIdAndBusinessIdAndType">
         DELETE FROM collect
         WHERE user_id = #{userId}
           AND business_id = #{businessId}
+          AND type = #{type}
     </delete>
 
-    <select id="selectByUserIdAndBusinessId" resultType="com.habitual.demo.collect.entity.CollectEntity">
+    <select id="selectByUserIdAndBusinessIdAndType" resultType="com.habitual.demo.collect.entity.CollectEntity">
         SELECT * FROM collect
         WHERE user_id = #{userId}
           AND business_id = #{businessId}
+          AND type = #{type}
     </select>
 
     <select id="deleteByType">
@@ -53,7 +55,7 @@
           AND type = #{type}
     </select>
 
-    <select id="selectByPageAndUserIdAndBusinessId" resultType="com.habitual.demo.collect.entity.CollectEntity">
+    <select id="selectByPageAndUserIdAndType" resultType="com.habitual.demo.collect.entity.CollectEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         business_id, type, user_id

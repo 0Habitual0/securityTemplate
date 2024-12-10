@@ -27,19 +27,19 @@ public class CollectServiceImpl implements CollectService {
         input.setUserId(UserContext.getId());
         input.setCreateBy(UserContext.getNickname());
         input.setCreateTime(new Date());
-        CollectEntity isCollect = collectMapper.selectByUserIdAndBusinessId(UserContext.getId(), input.getBusinessId());
+        CollectEntity isCollect = collectMapper.selectByUserIdAndBusinessIdAndType(UserContext.getId(), input.getBusinessId(), input.getType());
         int result;
         if (isCollect == null) {
             result = collectMapper.insert(input);
         } else {
-            result = collectMapper.deleteByUserIdAndBusinessId(UserContext.getId(), input.getBusinessId());
+            result = collectMapper.deleteByUserIdAndBusinessIdAndType(UserContext.getId(), input.getBusinessId(), input.getType());
         }
         return CommonResponse.success(result);
     }
 
     @Override
-    public CommonResponse getState(String businessId) {
-        CollectEntity isCollect = collectMapper.selectByUserIdAndBusinessId(UserContext.getId(), businessId);
+    public CommonResponse getState(String businessId, String type) {
+        CollectEntity isCollect = collectMapper.selectByUserIdAndBusinessIdAndType(UserContext.getId(), businessId, type);
         if (isCollect == null) {
             return CommonResponse.success(false);
         } else {
@@ -53,7 +53,7 @@ public class CollectServiceImpl implements CollectService {
 
     public PageResult<CollectEntity> selectByPage(int pageNum, int pageSize, String type) {
         int offset = (pageNum - 1) * pageSize;
-        List<CollectEntity> list = collectMapper.selectByPageAndUserIdAndBusinessId(UserContext.getId(), type, offset, pageSize);
+        List<CollectEntity> list = collectMapper.selectByPageAndUserIdAndType(UserContext.getId(), type, offset, pageSize);
         int totalCount = collectMapper.getTotalCountByUserIdAndType(UserContext.getId(), type);
 
         int pages = (int) Math.ceil((double) totalCount / pageSize);

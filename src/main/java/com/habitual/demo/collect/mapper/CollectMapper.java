@@ -13,14 +13,14 @@ public interface CollectMapper {
 
     int insert(CollectEntity input);
 
-    int deleteByUserIdAndBusinessId(Long userId, String businessId);
+    int deleteByUserIdAndBusinessIdAndType(Long userId, String businessId, String type);
 
-    CollectEntity selectByUserIdAndBusinessId(Long userId, String businessId);
+    CollectEntity selectByUserIdAndBusinessIdAndType(Long userId, String businessId, String type);
 
     void deleteByType(String type);
 
     int getTotalCountByUserIdAndType(Long userId, String type);
 
-    List<CollectEntity> selectByPageAndUserIdAndBusinessId(Long userId, String type, int offset, int pageSize);
+    List<CollectEntity> selectByPageAndUserIdAndType(Long userId, String type, int offset, int pageSize);
 
 }

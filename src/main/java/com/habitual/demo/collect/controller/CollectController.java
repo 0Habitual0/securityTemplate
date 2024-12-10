@@ -28,8 +28,8 @@ public class CollectController {
      * 获取收藏状态
      */
     @GetMapping("getState")
-    public CommonResponse getState(@RequestParam String businessId) {
-        return collectService.getState(businessId);
+    public CommonResponse getState(@RequestParam String businessId, @RequestParam String type) {
+        return collectService.getState(businessId, type);
     }
 
 }

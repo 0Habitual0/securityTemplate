@@ -10,6 +10,6 @@ public interface CollectService {
 
     CommonResponse save(CollectEntity input);
 
-    CommonResponse getState(String businessId);
+    CommonResponse getState(String businessId, String type);
 
 }
