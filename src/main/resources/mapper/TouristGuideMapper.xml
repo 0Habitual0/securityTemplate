@@ -65,7 +65,8 @@
     <select id="selectByPage" parameterType="com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        user_id, title, context, image, type
+        user_id, title, context, image, type,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = tourist_guide.id AND collect.type = '旅游攻略') AS collect_count
         FROM tourist_guide
         WHERE 1=1
         <if test="title != null and title != ''">
@@ -90,7 +91,8 @@
     <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        user_id, title, context, image, type
+        user_id, title, context, image, type,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = tourist_guide.id AND collect.type = '旅游攻略') AS collect_count
         FROM tourist_guide
         WHERE 1=1
         AND id IN

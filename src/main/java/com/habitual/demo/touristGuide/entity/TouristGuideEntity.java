@@ -3,6 +3,7 @@ package com.habitual.demo.touristGuide.entity;
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
@@ -54,4 +55,12 @@ public class TouristGuideEntity extends BaseEntity {
      */
     @Comment("攻略类型")
     private String type;
+
+    /**
+     * 收藏数量
+     */
+    @Transient
+    @Comment("收藏数量")
+    private int collectCount;
+
 }

@@ -3,6 +3,7 @@ package com.habitual.demo.scenicSpot.entity;
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
@@ -90,5 +91,12 @@ public class ScenicSpotEntity extends BaseEntity {
      */
     @Comment("景点介绍")
     private String introduce;
+
+    /**
+     * 收藏数量
+     */
+    @Transient
+    @Comment("收藏数量")
+    private int collectCount;
 
 }

@@ -83,7 +83,8 @@
     <select id="selectByPage" parameterType="com.habitual.demo.scenicSpot.entity.dto.ScenicSpotPageDto" resultType="com.habitual.demo.scenicSpot.entity.ScenicSpotEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        name, type, image, level, location, price, stock, open_time, precautions, traffic_guide, introduce
+        name, type, image, level, location, price, stock, open_time, precautions, traffic_guide, introduce,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = scenic_spot.id AND collect.type = '景点门票') AS collect_count
         FROM scenic_spot
         WHERE 1=1
         <if test="name != null and name != ''">
@@ -111,7 +112,8 @@
     <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.scenicSpot.entity.ScenicSpotEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        name, type, image, level, location, price, stock, open_time, precautions, traffic_guide, introduce
+        name, type, image, level, location, price, stock, open_time, precautions, traffic_guide, introduce,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = scenic_spot.id AND collect.type = '景点门票') AS collect_count
         FROM scenic_spot
         WHERE 1=1
         AND id IN

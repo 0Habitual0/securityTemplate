@@ -71,7 +71,8 @@
     <select id="selectByPage" parameterType="com.habitual.demo.hotel.entity.dto.HotelPageDto" resultType="com.habitual.demo.hotel.entity.HotelEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        image, introduce, location, name, tel, type, url
+        image, introduce, location, name, tel, type, url,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = hotel.id AND collect.type = '酒店住宿') AS collect_count
         FROM hotel
         WHERE 1=1
         <if test="name != null and name != ''">
@@ -99,7 +100,8 @@
     <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.hotel.entity.HotelEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        image, introduce, location, name, tel, type, url
+        image, introduce, location, name, tel, type, url,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = hotel.id AND collect.type = '酒店住宿') AS collect_count
         FROM hotel
         WHERE 1=1
         AND id IN

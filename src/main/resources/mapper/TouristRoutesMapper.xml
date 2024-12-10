@@ -86,7 +86,8 @@
     <select id="selectByPage" parameterType="com.habitual.demo.touristRoutes.entity.dto.TouristRoutesPageDto" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        name, scenic_spot_name, image, begin_spot, way_spot, end_spot, traffic, introduce, start_time, price, stock, type
+        name, scenic_spot_name, image, begin_spot, way_spot, end_spot, traffic, introduce, start_time, price, stock, type,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = tourist_routes.id AND collect.type = '旅游线路') AS collect_count
         FROM tourist_routes
         WHERE 1=1
         <if test="name != null and name != ''">
@@ -111,7 +112,8 @@
     <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        name, scenic_spot_name, image, begin_spot, way_spot, end_spot, traffic, introduce, start_time, price, stock, type
+        name, scenic_spot_name, image, begin_spot, way_spot, end_spot, traffic, introduce, start_time, price, stock, type,
+        (SELECT COUNT(*) FROM collect WHERE collect.business_id = tourist_routes.id AND collect.type = '旅游线路') AS collect_count
         FROM tourist_routes
         WHERE 1=1
         AND id IN
