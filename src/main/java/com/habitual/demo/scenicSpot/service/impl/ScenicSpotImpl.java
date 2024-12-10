@@ -88,4 +88,9 @@ public class ScenicSpotImpl implements ScenicSpotService {
         return CommonResponse.success(result);
     }
 
+    @Override
+    public CommonResponse recommend() {
+        return CommonResponse.success(scenicSpotMapper.selectRandomFive());
+    }
+
 }

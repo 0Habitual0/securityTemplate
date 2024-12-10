@@ -17,4 +17,6 @@ public interface ScenicSpotService {
 
     CommonResponse selectByPageCollect(ScenicSpotPageDto input);
 
+    CommonResponse recommend();
+
 }

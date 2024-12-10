@@ -50,4 +50,12 @@ public class ScenicSpotController {
         return scenicSpotService.selectByPageCollect(input);
     }
 
+    /**
+     * 首页推荐景点
+     */
+    @PostMapping("recommend")
+    public CommonResponse recommend() {
+        return scenicSpotService.recommend();
+    }
+
 }
