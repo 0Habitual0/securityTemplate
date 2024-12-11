@@ -1,5 +1,6 @@
 package com.habitual.demo.touristRoutes.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -79,6 +80,7 @@ public class TouristRoutesEntity extends BaseEntity {
      * 旅游线路出发时间
      */
     @Comment("旅游线路出发时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
     private Date startTime;
 
     /**
