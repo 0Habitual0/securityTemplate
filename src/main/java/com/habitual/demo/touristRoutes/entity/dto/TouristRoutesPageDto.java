@@ -7,6 +7,10 @@ import lombok.Setter;
 @Setter
 public class TouristRoutesPageDto {
 
+    private String name;
+
+    private String type;
+
     private String createBy;
 
     private String updateBy;
