@@ -17,6 +17,8 @@ public interface CollectMapper {
 
     CollectEntity selectByUserIdAndBusinessIdAndType(Long userId, String businessId, String type);
 
+    List<CollectEntity> findAll();
+
     void deleteByType(String type);
 
     int getTotalCountByUserIdAndType(Long userId, String type);

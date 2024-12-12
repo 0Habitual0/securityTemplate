@@ -32,4 +32,12 @@ public class CollectController {
         return collectService.getState(businessId, type);
     }
 
+    /**
+     * 收藏饼图
+     */
+    @GetMapping("pieChart")
+    public CommonResponse pieChart() {
+        return collectService.pieChart();
+    }
+
 }

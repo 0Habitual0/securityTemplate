@@ -44,6 +44,10 @@
           AND type = #{type}
     </select>
 
+    <select id="findAll" resultType="com.habitual.demo.collect.entity.CollectEntity">
+        SELECT * FROM collect
+    </select>
+
     <select id="deleteByType">
         DELETE FROM collect
         WHERE type = #{type}

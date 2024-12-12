@@ -12,4 +12,6 @@ public interface CollectService {
 
     CommonResponse getState(String businessId, String type);
 
+    CommonResponse pieChart();
+
 }

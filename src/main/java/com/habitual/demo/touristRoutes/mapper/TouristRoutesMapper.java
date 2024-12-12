@@ -26,4 +26,6 @@ public interface TouristRoutesMapper {
 
     List<String> selectTypeList();
 
+    TouristRoutesEntity selectById(Long id);
+
 }

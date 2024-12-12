@@ -1,6 +1,7 @@
 package com.habitual.demo.collect.service.impl;
 
 import com.habitual.demo.collect.entity.CollectEntity;
+import com.habitual.demo.collect.entity.dto.CollectPieChartDto;
 import com.habitual.demo.collect.mapper.CollectMapper;
 import com.habitual.demo.collect.service.CollectService;
 import com.habitual.demo.common.entity.CommonResponse;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 业务层实现 收藏
@@ -45,6 +47,17 @@ public class CollectServiceImpl implements CollectService {
         } else {
             return CommonResponse.success(true);
         }
+    }
+
+    @Override
+    public CommonResponse pieChart() {
+        List<CollectEntity> allEntity = collectMapper.findAll();
+        CollectPieChartDto output = new CollectPieChartDto();
+        output.setHotel(allEntity.stream().filter(c -> Objects.equals(c.getType(), "酒店住宿")).count());
+        output.setScenicSpot(allEntity.stream().filter(c -> Objects.equals(c.getType(), "景点门票")).count());
+        output.setTouristGuide(allEntity.stream().filter(c -> Objects.equals(c.getType(), "旅游攻略")).count());
+        output.setTouristRoutes(allEntity.stream().filter(c -> Objects.equals(c.getType(), "旅游线路")).count());
+        return CommonResponse.success(output);
     }
 
     public void deleteByType(String type) {

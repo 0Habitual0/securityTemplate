@@ -130,4 +130,10 @@
         SELECT * FROM scenic_spot ORDER BY RAND() LIMIT 5;
     </select>
 
+    <select id="selectById" resultType="com.habitual.demo.scenicSpot.entity.ScenicSpotEntity">
+        SELECT * FROM scenic_spot
+        WHERE 1=1
+        AND id = #{id}
+    </select>
+
 </mapper>

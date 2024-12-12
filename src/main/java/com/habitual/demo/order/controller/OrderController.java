@@ -17,22 +17,60 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-//    /**
-//     * 新增
-//     */
-//    @PostMapping("save")
-//    public CommonResponse save(@RequestBody RealOrderEntity input) {
-//        return orderService.save(input);
-//    }
-//
-//    /**
-//     * 分页查询
-//     */
-//    @PostMapping("selectByPage")
-//    public CommonResponse selectByPage(@RequestBody OrderPageDto input) {
-//        return orderService.selectByPage(input);
-//    }
+    /**
+     * 新增订单
+     */
+    @PostMapping("saveReal")
+    public CommonResponse saveReal(@RequestBody RealOrderEntity input) {
+        return orderService.saveReal(input);
+    }
 
+    /**
+     * 分页查询订单
+     */
+    @PostMapping("selectRealByPage")
+    public CommonResponse selectRealByPage(@RequestBody OrderPageDto input) {
+        return orderService.selectRealByPage(input);
+    }
 
+    /**
+     * 修改订单状态到已支付
+     */
+    @GetMapping("/changeStatusPaid")
+    public CommonResponse changeStatusPaid(@RequestParam Long id) {
+        return orderService.changeStatusPaid(id);
+    }
+
+    /**
+     * 修改订单状态到已完成
+     */
+    @GetMapping("/changeStatusComplete")
+    public CommonResponse changeStatusComplete(@RequestParam Long id) {
+        return orderService.changeStatusComplete(id);
+    }
+
+    /**
+     * 修改订单状态到退单审核
+     */
+    @GetMapping("/changeStatusBackProcess")
+    public CommonResponse changeStatusBackProcess(@RequestParam Long id) {
+        return orderService.changeStatusBackProcess(id);
+    }
+
+    /**
+     * 修改订单状态到退单
+     */
+    @GetMapping("/changeStatusBack")
+    public CommonResponse changeStatusBack(@RequestParam Long id) {
+        return orderService.changeStatusBack(id);
+    }
+
+    /**
+     * 分页查询退单
+     */
+    @PostMapping("selectBackByPage")
+    public CommonResponse selectBackByPage(@RequestBody OrderPageDto input) {
+        return orderService.selectBackByPage(input);
+    }
 
 }
