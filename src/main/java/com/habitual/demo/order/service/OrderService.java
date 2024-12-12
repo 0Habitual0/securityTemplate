@@ -23,4 +23,6 @@ public interface OrderService {
 
     CommonResponse selectBackByPage(OrderPageDto input);
 
+    CommonResponse mainPage();
+
 }

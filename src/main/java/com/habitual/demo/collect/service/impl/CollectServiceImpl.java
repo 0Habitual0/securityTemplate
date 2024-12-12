@@ -30,11 +30,13 @@ public class CollectServiceImpl implements CollectService {
         input.setCreateBy(UserContext.getNickname());
         input.setCreateTime(new Date());
         CollectEntity isCollect = collectMapper.selectByUserIdAndBusinessIdAndType(UserContext.getId(), input.getBusinessId(), input.getType());
-        int result;
+        boolean result = false;
         if (isCollect == null) {
-            result = collectMapper.insert(input);
+            collectMapper.insert(input);
+            result = true;
         } else {
-            result = collectMapper.deleteByUserIdAndBusinessIdAndType(UserContext.getId(), input.getBusinessId(), input.getType());
+            collectMapper.deleteByUserIdAndBusinessIdAndType(UserContext.getId(), input.getBusinessId(), input.getType());
+            result = false;
         }
         return CommonResponse.success(result);
     }

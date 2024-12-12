@@ -2,4 +2,204 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.habitual.demo.order.mapper.OrderMapper">
 
+    <insert id="insertReal" parameterType="com.habitual.demo.order.entity.RealOrderEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO real_order (
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            update_time,
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="userId != null">userId,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="realName != null and realName != ''">real_name,</if>
+            <if test="orderCode != null and orderCode != ''">order_code,</if>
+            <if test="unitPrice != null">unit_price,</if>
+            <if test="totalPrice != null">total_price,</if>
+            <if test="num != null">num,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="status != null and status != ''">status,</if>
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            #{createTime},
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            #{updateTime},
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="tel != null and tel != ''">#{tel},</if>
+            <if test="realName != null and realName != ''">#{realName},</if>
+            <if test="orderCode != null and orderCode != ''">#{orderCode},</if>
+            <if test="unitPrice != null">#{unitPrice},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="num != null">#{num},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="status != null and status != ''">#{status},</if>
+        </trim>
+        )
+    </insert>
+
+    <select id="selectRealByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.RealOrderEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+        FROM real_order
+        WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND user_id = #{userId}
+        </if>
+        <if test="orderCode != null and orderCode != ''">
+            AND order_code = #{orderCode}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{type}
+        </if>
+        <if test="tel != null and tel != ''">
+            AND tel = #{tel}
+        </if>
+        <if test="createBy != null and createBy != ''">
+            AND create_by = #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            AND update_by = #{updateBy}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND remark = #{remark}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="getRealTotalCount">
+        SELECT COUNT(*) FROM real_order
+    </select>
+
+    <select id="selectRealById">
+        SELECT * FROM real_order
+        WHERE 1=1
+        AND id = #{id}
+    </select>
+
+    <update id="updateReal" parameterType="com.habitual.demo.order.entity.RealOrderEntity">
+        UPDATE real_order
+        <set>
+            <trim suffixOverrides=",">
+                <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+                create_time = #{createTime},
+                <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+                update_time = #{updateTime},
+                <if test="remark != null and remark != ''">remark = #{remark},</if>
+                <if test="businessId != null">business_id #{businessId},</if>
+                <if test="userId != null">user_id = #{userId},</if>
+                <if test="tel != null and tel != ''">tel = #{tel},</if>
+                <if test="realName != null and realName != ''">real_name = #{realName},</if>
+                <if test="orderCode != null and orderCode != ''">order_code = #{orderCode},</if>
+                <if test="unitPrice != null">unit_price = #{unitPrice},</if>
+                <if test="totalPrice != null">total_price = #{totalPrice},</if>
+                <if test="num != null">num = #{num},</if>
+                <if test="type != null and type != ''">type = #{type},</if>
+                <if test="status != null and status != ''">status = #{status},</if>
+            </trim>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteRealById">
+        DELETE FROM real_order
+        WHERE 1=1
+        AND id = #{id}
+    </delete>
+
+    <insert id="insertBack" parameterType="com.habitual.demo.order.entity.BackOrderEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO back_order (
+        <trim suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time,
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            update_time,
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="userId != null">userId,</if>
+            <if test="tel != null and tel != ''">tel,</if>
+            <if test="realName != null and realName != ''">real_name,</if>
+            <if test="orderCode != null and orderCode != ''">order_code,</if>
+            <if test="unitPrice != null">unit_price,</if>
+            <if test="totalPrice != null">total_price,</if>
+            <if test="num != null">num,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="status != null and status != ''">status,</if>
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            #{createTime},
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            #{updateTime},
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="tel != null and tel != ''">#{tel},</if>
+            <if test="realName != null and realName != ''">#{realName},</if>
+            <if test="orderCode != null and orderCode != ''">#{orderCode},</if>
+            <if test="unitPrice != null">#{unitPrice},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="num != null">#{num},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="status != null and status != ''">#{status},</if>
+        </trim>
+        )
+    </insert>
+
+    <select id="getBackTotalCount">
+        SELECT COUNT(*) FROM back_order
+    </select>
+
+    <select id="selectBackByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.BackOrderEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+        FROM back_order
+        WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND user_id = #{userId}
+        </if>
+        <if test="orderCode != null and orderCode != ''">
+            AND order_code = #{orderCode}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{type}
+        </if>
+        <if test="tel != null and tel != ''">
+            AND tel = #{tel}
+        </if>
+        <if test="createBy != null and createBy != ''">
+            AND create_by = #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy != ''">
+            AND update_by = #{updateBy}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND remark = #{remark}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectByTypeAndCreateTimeAfter" resultType="com.habitual.demo.order.entity.RealOrderEntity">
+        SELECT
+            id, create_by, create_time, update_by, update_time, remark,
+            business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+        FROM real_order
+        WHERE 1=1
+          AND type = #{type}
+          AND create_time >= #{createTimeAfter}
+    </select>
+
 </mapper>

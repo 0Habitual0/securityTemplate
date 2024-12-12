@@ -5,6 +5,7 @@ import com.habitual.demo.common.entity.PageResult;
 import com.habitual.demo.common.security.context.UserContext;
 import com.habitual.demo.order.entity.BackOrderEntity;
 import com.habitual.demo.order.entity.RealOrderEntity;
+import com.habitual.demo.order.entity.dto.MainPageDto;
 import com.habitual.demo.order.entity.dto.OrderPageDto;
 import com.habitual.demo.order.mapper.OrderMapper;
 import com.habitual.demo.order.service.OrderService;
@@ -17,10 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * 业务层实现 订单退单
@@ -168,6 +167,57 @@ public class OrderServiceImpl implements OrderService {
         result.setPages(pages);
 
         return CommonResponse.success(result);
+    }
+
+    @Override
+    public CommonResponse mainPage() {
+        MainPageDto output = new MainPageDto();
+        output.setScenicSpotNum(scenicSpotMapper.getTotalCount());
+        output.setTouristRoutesNum(touristRoutesMapper.getTotalCount());
+        output.setTotalNum(output.getScenicSpotNum() + output.getTouristRoutesNum());
+        // 获取当前日期
+        Calendar calendar = Calendar.getInstance();
+
+        // 将时间设置为当天零点
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // 将日期减去7天，得到一周前的日期
+        calendar.add(Calendar.DAY_OF_MONTH, -7);
+        List<RealOrderEntity> weekSS = orderMapper.selectByTypeAndCreateTimeAfter("景点门票", calendar.getTime());
+        List<RealOrderEntity> weekTR = orderMapper.selectByTypeAndCreateTimeAfter("旅游线路", calendar.getTime());
+        Map<Date, Integer> scenicSpotWeek = new HashMap<>();
+        Map<Date, Integer> touristRoutesWeek = new HashMap<>();
+
+        // 处理 "景点门票" 类型的订单
+        for (RealOrderEntity order : weekSS) {
+            Date orderDate = getZeroTimeDate(order.getCreateTime());
+            scenicSpotWeek.put(orderDate, scenicSpotWeek.getOrDefault(orderDate, 0) + 1);
+        }
+
+        // 处理 "旅游线路" 类型的订单
+        for (RealOrderEntity order : weekTR) {
+            Date orderDate = getZeroTimeDate(order.getCreateTime());
+            touristRoutesWeek.put(orderDate, touristRoutesWeek.getOrDefault(orderDate, 0) + 1);
+        }
+
+        output.setScenicSpotWeek(scenicSpotWeek);
+        output.setTouristRoutesWeek(touristRoutesWeek);
+
+        return CommonResponse.success(output);
+    }
+
+    // 获取零点时间的方法
+    private static Date getZeroTimeDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 
 }

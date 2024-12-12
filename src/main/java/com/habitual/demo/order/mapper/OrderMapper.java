@@ -5,6 +5,7 @@ import com.habitual.demo.order.entity.RealOrderEntity;
 import com.habitual.demo.order.entity.dto.OrderPageDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,5 +31,7 @@ public interface OrderMapper {
     int getBackTotalCount();
 
     List<BackOrderEntity> selectBackByPage(OrderPageDto input);
+
+    List<RealOrderEntity> selectByTypeAndCreateTimeAfter(String type, Date createTimeAfter);
 
 }

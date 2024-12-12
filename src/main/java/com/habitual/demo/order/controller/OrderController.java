@@ -73,4 +73,12 @@ public class OrderController {
         return orderService.selectBackByPage(input);
     }
 
+    /**
+     * 首页
+     */
+    @GetMapping("/mainPage")
+    public CommonResponse mainPage() {
+        return orderService.mainPage();
+    }
+
 }
