@@ -22,4 +22,6 @@ public interface CommentMapper {
 
     List<CommentEntity> selectByPage(CommentPageDto input);
 
+    List<CommentEntity> selectByParentIdIn(List<Long> parentIds);
+
 }

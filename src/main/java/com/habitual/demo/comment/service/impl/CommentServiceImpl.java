@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 业务层实现 评论
@@ -41,6 +43,13 @@ public class CommentServiceImpl implements CommentService {
     public CommonResponse selectByPage(CommentPageDto input) {
         input.setOffset((input.getPageNum() - 1) * input.getPageSize());
         List<CommentEntity> list = commentMapper.selectByPage(input);
+        if (!list.isEmpty()) {
+            List<CommentEntity> childList = commentMapper.selectByParentIdIn(list.stream().map(CommentEntity::getId).collect(Collectors.toList()));
+            Map<String, List<CommentEntity>> childMap = childList.stream()
+                    .collect(Collectors.groupingBy(CommentEntity::getParentId));
+            // 设置每个父评论的子评论
+            list.forEach(comment -> comment.setChildren(childMap.get(comment.getId().toString())));
+        }
         int totalCount = commentMapper.getTotalCount(input.getBusinessId());
 
         int pages = (int) Math.ceil((double) totalCount / input.getPageSize());

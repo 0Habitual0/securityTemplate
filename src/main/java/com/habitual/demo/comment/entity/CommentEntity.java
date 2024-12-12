@@ -3,11 +3,13 @@ package com.habitual.demo.comment.entity;
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import java.io.Serial;
+import java.util.List;
 
 /**
  * 实体类 评论
@@ -48,5 +50,12 @@ public class CommentEntity extends BaseEntity {
      */
     @Comment("评论类别")
     private String type;
+
+    /**
+     * 子评论
+     */
+    @Transient
+    @Comment("子评论")
+    private List<CommentEntity> children;
 
 }

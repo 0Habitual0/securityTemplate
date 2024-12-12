@@ -43,6 +43,7 @@
         <if test="businessId != null and businessId != ''">
             AND business_id = #{businessId}
         </if>
+            AND parent_id IS NULL
     </select>
 
     <select id="selectByPage" parameterType="com.habitual.demo.comment.entity.dto.CommentPageDto" resultType="com.habitual.demo.comment.entity.CommentEntity">
@@ -66,8 +67,17 @@
         <if test="remark != null and remark != ''">
             AND remark = #{remark}
         </if>
+            AND parent_id IS NULL
         ORDER BY create_time DESC
         LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectByParentIdIn" resultType="com.habitual.demo.comment.entity.CommentEntity">
+        SELECT * FROM comment
+        WHERE parent_id IN
+        <foreach item="id" collection="parentIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </select>
 
 </mapper>
