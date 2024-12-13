@@ -12,7 +12,7 @@
             update_time,
             <if test="remark != null and remark != ''">remark,</if>
             <if test="businessId != null">business_id,</if>
-            <if test="userId != null">userId,</if>
+            <if test="userId != null">user_id,</if>
             <if test="tel != null and tel != ''">tel,</if>
             <if test="realName != null and realName != ''">real_name,</if>
             <if test="orderCode != null and orderCode != ''">order_code,</if>
@@ -98,7 +98,7 @@
                 <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
                 update_time = #{updateTime},
                 <if test="remark != null and remark != ''">remark = #{remark},</if>
-                <if test="businessId != null">business_id #{businessId},</if>
+                <if test="businessId != null">business_id = #{businessId},</if>
                 <if test="userId != null">user_id = #{userId},</if>
                 <if test="tel != null and tel != ''">tel = #{tel},</if>
                 <if test="realName != null and realName != ''">real_name = #{realName},</if>
@@ -129,7 +129,7 @@
             update_time,
             <if test="remark != null and remark != ''">remark,</if>
             <if test="businessId != null">business_id,</if>
-            <if test="userId != null">userId,</if>
+            <if test="userId != null">user_id,</if>
             <if test="tel != null and tel != ''">tel,</if>
             <if test="realName != null and realName != ''">real_name,</if>
             <if test="orderCode != null and orderCode != ''">order_code,</if>
