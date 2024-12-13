@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 业务层实现 订单退单
@@ -77,9 +78,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public CommonResponse selectRealByPage(OrderPageDto input) {
+        if (input.isUserSelect()) {
+            input.setUserId(UserContext.getId());
+        } else {
+            input.setUserId(null);
+        }
         input.setOffset((input.getPageNum() - 1) * input.getPageSize());
         List<RealOrderEntity> list = orderMapper.selectRealByPage(input);
-        int totalCount = orderMapper.getRealTotalCount();
+        int totalCount = orderMapper.getRealTotalCount(input.getUserId());
 
         int pages = (int) Math.ceil((double) totalCount / input.getPageSize());
 
@@ -155,9 +161,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public CommonResponse selectBackByPage(OrderPageDto input) {
+        if (input.isUserSelect()) {
+            input.setUserId(UserContext.getId());
+        } else {
+            input.setUserId(null);
+        }
         input.setOffset((input.getPageNum() - 1) * input.getPageSize());
         List<BackOrderEntity> list = orderMapper.selectBackByPage(input);
-        int totalCount = orderMapper.getBackTotalCount();
+        int totalCount = orderMapper.getBackTotalCount(input.getUserId());
 
         int pages = (int) Math.ceil((double) totalCount / input.getPageSize());
 
@@ -172,9 +183,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public CommonResponse mainPage() {
         MainPageDto output = new MainPageDto();
-        output.setScenicSpotNum(scenicSpotMapper.getTotalCount());
-        output.setTouristRoutesNum(touristRoutesMapper.getTotalCount());
+        List<RealOrderEntity> allReal = orderMapper.findAllReal();
+        output.setScenicSpotNum(allReal.stream().filter(a -> Objects.equals(a.getType(), "景点门票")).count());
+        output.setTouristRoutesNum(allReal.stream().filter(a -> Objects.equals(a.getType(), "旅游线路")).count());
         output.setTotalNum(output.getScenicSpotNum() + output.getTouristRoutesNum());
+        output.setBackNum(orderMapper.getBackTotalCount(null));
         // 获取当前日期
         Calendar calendar = Calendar.getInstance();
 

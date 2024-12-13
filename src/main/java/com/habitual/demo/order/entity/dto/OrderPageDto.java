@@ -9,9 +9,13 @@ public class OrderPageDto {
 
     private boolean userSelect;
 
+    private Long userId;
+
     private String orderCode;
 
     private String status;
+
+    private String tel;
 
     private String createBy;
 

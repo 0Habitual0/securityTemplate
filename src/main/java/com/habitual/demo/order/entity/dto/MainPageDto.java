@@ -10,11 +10,13 @@ import java.util.Map;
 @Setter
 public class MainPageDto {
 
-    private Integer scenicSpotNum;
+    private Long scenicSpotNum;
 
-    private Integer touristRoutesNum;
+    private Long touristRoutesNum;
 
-    private Integer totalNum;
+    private Long totalNum;
+
+    private Integer backNum;
 
     private Map<Date, Integer> scenicSpotWeek;
 

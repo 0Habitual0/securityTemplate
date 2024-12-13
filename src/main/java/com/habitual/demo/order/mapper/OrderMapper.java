@@ -18,7 +18,7 @@ public interface OrderMapper {
 
     List<RealOrderEntity> selectRealByPage(OrderPageDto input);
 
-    int getRealTotalCount();
+    int getRealTotalCount(Long userId);
 
     RealOrderEntity selectRealById(Long id);
 
@@ -28,10 +28,12 @@ public interface OrderMapper {
 
     int insertBack(BackOrderEntity input);
 
-    int getBackTotalCount();
+    int getBackTotalCount(Long userId);
 
     List<BackOrderEntity> selectBackByPage(OrderPageDto input);
 
     List<RealOrderEntity> selectByTypeAndCreateTimeAfter(String type, Date createTimeAfter);
+
+    List<RealOrderEntity> findAllReal();
 
 }

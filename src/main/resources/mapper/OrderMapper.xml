@@ -57,7 +57,7 @@
             AND order_code = #{orderCode}
         </if>
         <if test="status != null and status != ''">
-            AND status = #{type}
+            AND status = #{status}
         </if>
         <if test="tel != null and tel != ''">
             AND tel = #{tel}
@@ -77,6 +77,10 @@
 
     <select id="getRealTotalCount">
         SELECT COUNT(*) FROM real_order
+        WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND user_id = #{userId}
+        </if>
     </select>
 
     <select id="selectRealById">
@@ -159,6 +163,10 @@
 
     <select id="getBackTotalCount">
         SELECT COUNT(*) FROM back_order
+        WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND user_id = #{userId}
+        </if>
     </select>
 
     <select id="selectBackByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.BackOrderEntity">
@@ -174,7 +182,7 @@
             AND order_code = #{orderCode}
         </if>
         <if test="status != null and status != ''">
-            AND status = #{type}
+            AND status = #{status}
         </if>
         <if test="tel != null and tel != ''">
             AND tel = #{tel}
@@ -200,6 +208,14 @@
         WHERE 1=1
           AND type = #{type}
           AND create_time >= #{createTimeAfter}
+    </select>
+
+    <select id="findAllReal" resultType="com.habitual.demo.order.entity.RealOrderEntity">
+        SELECT
+            id, create_by, create_time, update_by, update_time, remark,
+            business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+        FROM real_order
+        WHERE 1=1
     </select>
 
 </mapper>
