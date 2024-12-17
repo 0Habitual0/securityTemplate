@@ -7,6 +7,10 @@ import lombok.Setter;
 @Setter
 public class CommentPageDto {
 
+    private boolean userSelect;
+
+    private Long userId;
+
     private String businessId;
 
     private String type;

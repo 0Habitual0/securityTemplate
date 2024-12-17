@@ -41,6 +41,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommonResponse selectByPage(CommentPageDto input) {
+        if (input.isUserSelect()) {
+            input.setUserId(UserContext.getId());
+        } else {
+            input.setUserId(null);
+        }
         input.setOffset((input.getPageNum() - 1) * input.getPageSize());
         List<CommentEntity> list = commentMapper.selectByPage(input);
         if (!list.isEmpty()) {
