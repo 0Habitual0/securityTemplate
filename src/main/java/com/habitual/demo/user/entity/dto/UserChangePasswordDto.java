@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class UserChangePasswordDto {
 
-    private String username;
+    private boolean userSelect;
 
     private String oldPassword;
 

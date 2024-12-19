@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 业务层实现 用户
@@ -71,17 +72,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public CommonResponse changePassword(UserChangePasswordDto input) {
         // 检查登录账号是否重复
-        UserEntity existingUser = userRepository.findByUsername(input.getUsername());
-        if (existingUser == null) {
-            return CommonResponse.fail("登录账号不存在");
+        if (input.isUserSelect()) {
+            UserEntity existingUser = userRepository.findByUsername(UserContext.getUsername());
+            if (existingUser == null) {
+                return CommonResponse.fail("登录账号不存在");
+            }
+            if (!Objects.equals(existingUser.getPassword(), input.getOldPassword())) {
+                return CommonResponse.fail("旧密码不正确");
+            }
+            existingUser.setPassword(input.getNewPassword());
+            userRepository.save(existingUser);
+            jwtTokenUtil.deleteToken(existingUser.getUsername());
+            return CommonResponse.success("修改成功");
+        } else {
+            Optional<AdminEntity> existingUser = adminRepository.findById(UserContext.getId());
+            if (existingUser.isEmpty()) {
+                return CommonResponse.fail("登录账号不存在");
+            }
+            if (!Objects.equals(existingUser.get().getPassword(), input.getOldPassword())) {
+                return CommonResponse.fail("旧密码不正确");
+            }
+            existingUser.get().setPassword(input.getNewPassword());
+            adminRepository.save(existingUser.get());
+            jwtTokenUtil.deleteToken(existingUser.get().getAdminname());
+            return CommonResponse.success("修改成功");
         }
-        if (!Objects.equals(existingUser.getPassword(), input.getOldPassword())) {
-            return CommonResponse.fail("旧密码不正确");
-        }
-        existingUser.setPassword(input.getNewPassword());
-        userRepository.save(existingUser);
-        jwtTokenUtil.deleteToken(existingUser.getUsername());
-        return CommonResponse.success("修改成功");
     }
 
     @Override

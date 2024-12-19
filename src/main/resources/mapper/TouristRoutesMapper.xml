@@ -126,4 +126,10 @@
         SELECT DISTINCT type FROM tourist_routes;
     </select>
 
+    <select id="selectById" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
+        SELECT * FROM tourist_routes
+        WHERE 1=1
+          AND id = #{id}
+    </select>
+
 </mapper>
