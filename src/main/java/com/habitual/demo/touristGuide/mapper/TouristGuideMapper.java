@@ -18,6 +18,8 @@ public interface TouristGuideMapper {
 
     int delete(Long id);
 
+    TouristGuideEntity selectById(Long id);
+
     int getTotalCount();
 
     List<TouristGuideEntity> selectByPage(TouristGuidePageDto input);

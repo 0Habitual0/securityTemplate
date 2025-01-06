@@ -64,6 +64,12 @@
         WHERE id = #{id}
     </delete>
 
+    <select id="selectById" resultType="com.habitual.demo.hotel.entity.HotelEntity">
+        SELECT * FROM hotel
+        WHERE 1=1
+          AND id = #{id}
+    </select>
+
     <select id="getTotalCount">
         SELECT COUNT(*) FROM hotel
     </select>

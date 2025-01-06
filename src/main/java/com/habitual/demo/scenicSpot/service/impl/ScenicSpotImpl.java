@@ -52,6 +52,15 @@ public class ScenicSpotImpl implements ScenicSpotService {
     }
 
     @Override
+    public CommonResponse detail(Long id) {
+        ScenicSpotEntity entity = scenicSpotMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            return CommonResponse.fail("数据不存在");
+        }
+        return CommonResponse.success(entity);
+    }
+
+    @Override
     public CommonResponse selectByPage(ScenicSpotPageDto input) {
         input.setOffset((input.getPageNum() - 1) * input.getPageSize());
         List<ScenicSpotEntity> list = scenicSpotMapper.selectByPage(input);

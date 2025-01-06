@@ -18,6 +18,8 @@ public interface HotelMapper {
 
     int delete(Long id);
 
+    HotelEntity selectById(Long id);
+
     int getTotalCount();
 
     List<HotelEntity> selectByPage(HotelPageDto input);

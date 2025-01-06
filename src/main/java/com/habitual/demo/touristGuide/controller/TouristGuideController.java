@@ -34,6 +34,14 @@ public class TouristGuideController {
     }
 
     /**
+     * 详情
+     */
+    @GetMapping("detail")
+    public CommonResponse detail(@RequestParam Long id) {
+        return touristGuideService.detail(id);
+    }
+
+    /**
      * 分页查询
      */
     @PostMapping("selectByPage")

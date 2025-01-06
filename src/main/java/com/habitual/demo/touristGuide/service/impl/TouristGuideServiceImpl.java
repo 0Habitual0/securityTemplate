@@ -1,5 +1,6 @@
 package com.habitual.demo.touristGuide.service.impl;
 
+import com.habitual.demo.hotel.entity.HotelEntity;
 import com.habitual.demo.touristGuide.entity.TouristGuideEntity;
 import com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto;
 import com.habitual.demo.touristGuide.mapper.TouristGuideMapper;
@@ -46,6 +47,15 @@ public class TouristGuideServiceImpl implements TouristGuideService {
     public CommonResponse delete(Long id) {
         collectService.deleteByType("旅游攻略");
         return CommonResponse.success(touristGuideMapper.delete(id));
+    }
+
+    @Override
+    public CommonResponse detail(Long id) {
+        TouristGuideEntity entity = touristGuideMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            return CommonResponse.fail("数据不存在");
+        }
+        return CommonResponse.success(entity);
     }
 
     @Override

@@ -13,6 +13,8 @@ public interface TouristRoutesService {
 
     CommonResponse delete(Long id);
 
+    CommonResponse detail(Long id);
+
     CommonResponse selectByPage(TouristRoutesPageDto input);
 
     CommonResponse selectByPageCollect(TouristRoutesPageDto input);

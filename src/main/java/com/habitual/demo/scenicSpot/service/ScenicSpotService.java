@@ -13,6 +13,8 @@ public interface ScenicSpotService {
 
     CommonResponse delete(Long id);
 
+    CommonResponse detail(Long id);
+
     CommonResponse selectByPage(ScenicSpotPageDto input);
 
     CommonResponse selectByPageCollect(ScenicSpotPageDto input);

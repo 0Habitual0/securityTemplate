@@ -58,6 +58,12 @@
         WHERE id = #{id}
     </delete>
 
+    <select id="selectById" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+        SELECT * FROM tourist_guide
+        WHERE 1=1
+          AND id = #{id}
+    </select>
+
     <select id="getTotalCount">
         SELECT COUNT(*) FROM tourist_guide
     </select>

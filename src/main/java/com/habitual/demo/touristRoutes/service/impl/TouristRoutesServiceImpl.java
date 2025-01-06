@@ -5,6 +5,7 @@ import com.habitual.demo.collect.service.impl.CollectServiceImpl;
 import com.habitual.demo.common.entity.CommonResponse;
 import com.habitual.demo.common.entity.PageResult;
 import com.habitual.demo.common.security.context.UserContext;
+import com.habitual.demo.hotel.entity.HotelEntity;
 import com.habitual.demo.touristRoutes.entity.TouristRoutesEntity;
 import com.habitual.demo.touristRoutes.entity.dto.TouristRoutesPageDto;
 import com.habitual.demo.touristRoutes.mapper.TouristRoutesMapper;
@@ -46,6 +47,15 @@ public class TouristRoutesServiceImpl implements TouristRoutesService {
     public CommonResponse delete(Long id) {
         collectService.deleteByType("旅游线路");
         return CommonResponse.success(touristRoutesMapper.delete(id));
+    }
+
+    @Override
+    public CommonResponse detail(Long id) {
+        TouristRoutesEntity entity = touristRoutesMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            return CommonResponse.fail("数据不存在");
+        }
+        return CommonResponse.success(entity);
     }
 
     @Override

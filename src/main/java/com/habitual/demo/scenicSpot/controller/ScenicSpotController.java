@@ -35,6 +35,14 @@ public class ScenicSpotController {
     }
 
     /**
+     * 详情
+     */
+    @GetMapping("detail")
+    public CommonResponse detail(@RequestParam Long id) {
+        return scenicSpotService.detail(id);
+    }
+
+    /**
      * 分页查询
      */
     @PostMapping("selectByPage")

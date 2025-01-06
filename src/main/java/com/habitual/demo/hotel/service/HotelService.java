@@ -13,6 +13,8 @@ public interface HotelService {
 
     CommonResponse delete(Long id);
 
+    CommonResponse detail(Long id);
+
     CommonResponse selectByPage(HotelPageDto input);
 
     CommonResponse selectByPageCollect(HotelPageDto input);

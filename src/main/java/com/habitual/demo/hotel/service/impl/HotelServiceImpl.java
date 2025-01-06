@@ -51,6 +51,15 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public CommonResponse detail(Long id) {
+        HotelEntity entity = hotelMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            return CommonResponse.fail("数据不存在");
+        }
+        return CommonResponse.success(entity);
+    }
+
+    @Override
     public CommonResponse selectByPage(HotelPageDto input) {
         input.setOffset((input.getPageNum() - 1) * input.getPageSize());
         List<HotelEntity> list = hotelMapper.selectByPage(input);
