@@ -24,7 +24,7 @@
             <if test="stagingStatus != null and stagingStatus != ''">staging_status,</if>
             <if test="image != null and image != ''">image,</if>
             <if test="payType != null and payType != ''">pay_type,</if>
-            <if test="reservationTime != null and reservationTime != ''">reservation_time,</if>
+            <if test="reservationTime != null">reservation_time,</if>
         </trim>
         ) VALUES (
         <trim suffixOverrides=",">
@@ -47,7 +47,7 @@
             <if test="stagingStatus != null and stagingStatus != ''">#{stagingStatus},</if>
             <if test="image != null and image != ''">#{image},</if>
             <if test="payType != null and payType != ''">#{payType},</if>
-            <if test="reservationTime != null and reservationTime != ''">#{reservationTime},</if>
+            <if test="reservationTime != null">#{reservationTime},</if>
         </trim>
         )
     </insert>
@@ -125,7 +125,7 @@
                 <if test="stagingStatus != null and stagingStatus != ''">staging_status = #{stagingStatus},</if>
                 <if test="image != null and image != ''">image = #{image},</if>
                 <if test="payType != null and payType != ''">pay_type = #{payType},</if>
-                <if test="reservationTime != null and reservationTime != ''">reservation_time = #{reservationTime},</if>
+                <if test="reservationTime != null">reservation_time = #{reservationTime},</if>
             </trim>
         </set>
         WHERE id = #{id}
@@ -165,7 +165,7 @@
             <if test="stagingStatus != null and stagingStatus != ''">staging_status,</if>
             <if test="image != null and image != ''">image,</if>
             <if test="payType != null and payType != ''">pay_type,</if>
-            <if test="reservationTime != null and reservationTime != ''">reservation_time,</if>
+            <if test="reservationTime != null">reservation_time,</if>
         </trim>
         ) VALUES (
         <trim suffixOverrides=",">
@@ -188,7 +188,7 @@
             <if test="stagingStatus != null and stagingStatus != ''">#{stagingStatus},</if>
             <if test="image != null and image != ''">#{image},</if>
             <if test="payType != null and payType != ''">#{payType},</if>
-            <if test="reservationTime != null and reservationTime != ''">#{reservationTime},</if>
+            <if test="reservationTime != null">#{reservationTime},</if>
         </trim>
         )
     </insert>

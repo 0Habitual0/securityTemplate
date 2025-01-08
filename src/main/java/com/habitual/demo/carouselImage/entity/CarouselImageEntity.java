@@ -16,7 +16,7 @@ import java.io.Serial;
 @Setter
 @Entity
 @Table(name = "carousel_image")
-@Comment("旅游线路")
+@Comment("轮播图")
 public class CarouselImageEntity extends BaseEntity {
 
     /**
