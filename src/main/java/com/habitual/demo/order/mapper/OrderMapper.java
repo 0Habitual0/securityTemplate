@@ -22,9 +22,13 @@ public interface OrderMapper {
 
     RealOrderEntity selectRealById(Long id);
 
+    BackOrderEntity selectBackById(Long id);
+
     int updateReal(RealOrderEntity input);
 
     int deleteRealById(Long id);
+
+    int deleteBackById(Long id);
 
     int insertBack(BackOrderEntity input);
 

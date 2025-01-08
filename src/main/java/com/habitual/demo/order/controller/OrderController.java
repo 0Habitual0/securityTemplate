@@ -37,8 +37,8 @@ public class OrderController {
      * 修改订单状态到已支付
      */
     @GetMapping("/changeStatusPaid")
-    public CommonResponse changeStatusPaid(@RequestParam Long id) {
-        return orderService.changeStatusPaid(id);
+    public CommonResponse changeStatusPaid(@RequestParam Long id, String payType) {
+        return orderService.changeStatusPaid(id, payType);
     }
 
     /**
@@ -61,8 +61,8 @@ public class OrderController {
      * 修改订单状态到退单
      */
     @GetMapping("/changeStatusBack")
-    public CommonResponse changeStatusBack(@RequestParam Long id) {
-        return orderService.changeStatusBack(id);
+    public CommonResponse changeStatusBack(@RequestParam Long id, Boolean status) {
+        return orderService.changeStatusBack(id, status);
     }
 
     /**

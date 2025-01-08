@@ -21,6 +21,10 @@
             <if test="num != null">num,</if>
             <if test="type != null and type != ''">type,</if>
             <if test="status != null and status != ''">status,</if>
+            <if test="stagingStatus != null and stagingStatus != ''">staging_status,</if>
+            <if test="image != null and image != ''">image,</if>
+            <if test="payType != null and payType != ''">pay_type,</if>
+            <if test="reservationTime != null and reservationTime != ''">reservation_time,</if>
         </trim>
         ) VALUES (
         <trim suffixOverrides=",">
@@ -40,6 +44,10 @@
             <if test="num != null">#{num},</if>
             <if test="type != null and type != ''">#{type},</if>
             <if test="status != null and status != ''">#{status},</if>
+            <if test="stagingStatus != null and stagingStatus != ''">#{stagingStatus},</if>
+            <if test="image != null and image != ''">#{image},</if>
+            <if test="payType != null and payType != ''">#{payType},</if>
+            <if test="reservationTime != null and reservationTime != ''">#{reservationTime},</if>
         </trim>
         )
     </insert>
@@ -47,7 +55,7 @@
     <select id="selectRealByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.RealOrderEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+        business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
         FROM real_order
         WHERE 1=1
         <if test="userId != null and userId != ''">
@@ -89,6 +97,12 @@
         AND id = #{id}
     </select>
 
+    <select id="selectBackById">
+        SELECT * FROM back_order
+        WHERE 1=1
+          AND id = #{id}
+    </select>
+
     <update id="updateReal" parameterType="com.habitual.demo.order.entity.RealOrderEntity">
         UPDATE real_order
         <set>
@@ -108,6 +122,10 @@
                 <if test="num != null">num = #{num},</if>
                 <if test="type != null and type != ''">type = #{type},</if>
                 <if test="status != null and status != ''">status = #{status},</if>
+                <if test="stagingStatus != null and stagingStatus != ''">staging_status = #{stagingStatus},</if>
+                <if test="image != null and image != ''">image = #{image},</if>
+                <if test="payType != null and payType != ''">pay_type = #{payType},</if>
+                <if test="reservationTime != null and reservationTime != ''">reservation_time = #{reservationTime},</if>
             </trim>
         </set>
         WHERE id = #{id}
@@ -117,6 +135,12 @@
         DELETE FROM real_order
         WHERE 1=1
         AND id = #{id}
+    </delete>
+
+    <delete id="deleteBackById">
+        DELETE FROM back_order
+        WHERE 1=1
+          AND id = #{id}
     </delete>
 
     <insert id="insertBack" parameterType="com.habitual.demo.order.entity.BackOrderEntity" useGeneratedKeys="true" keyProperty="id">
@@ -138,6 +162,10 @@
             <if test="num != null">num,</if>
             <if test="type != null and type != ''">type,</if>
             <if test="status != null and status != ''">status,</if>
+            <if test="stagingStatus != null and stagingStatus != ''">staging_status,</if>
+            <if test="image != null and image != ''">image,</if>
+            <if test="payType != null and payType != ''">pay_type,</if>
+            <if test="reservationTime != null and reservationTime != ''">reservation_time,</if>
         </trim>
         ) VALUES (
         <trim suffixOverrides=",">
@@ -157,6 +185,10 @@
             <if test="num != null">#{num},</if>
             <if test="type != null and type != ''">#{type},</if>
             <if test="status != null and status != ''">#{status},</if>
+            <if test="stagingStatus != null and stagingStatus != ''">#{stagingStatus},</if>
+            <if test="image != null and image != ''">#{image},</if>
+            <if test="payType != null and payType != ''">#{payType},</if>
+            <if test="reservationTime != null and reservationTime != ''">#{reservationTime},</if>
         </trim>
         )
     </insert>
@@ -172,7 +204,7 @@
     <select id="selectBackByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.BackOrderEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+        business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
         FROM back_order
         WHERE 1=1
         <if test="userId != null and userId != ''">
@@ -203,7 +235,7 @@
     <select id="selectByTypeAndCreateTimeAfter" resultType="com.habitual.demo.order.entity.RealOrderEntity">
         SELECT
             id, create_by, create_time, update_by, update_time, remark,
-            business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+            business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
         FROM real_order
         WHERE 1=1
           AND type = #{type}
@@ -213,7 +245,7 @@
     <select id="findAllReal" resultType="com.habitual.demo.order.entity.RealOrderEntity">
         SELECT
             id, create_by, create_time, update_by, update_time, remark,
-            business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status
+            business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
         FROM real_order
         WHERE 1=1
     </select>

@@ -15,7 +15,6 @@
             <if test="scenicSpotName != null and scenicSpotName != ''">scenic_spot_name,</if>
             <if test="image != null and image != ''">image,</if>
             <if test="beginSpot != null and beginSpot != ''">begin_spot,</if>
-            <if test="waySpot != null and waySpot != ''">way_spot,</if>
             <if test="endSpot != null and endSpot != ''">end_spot,</if>
             <if test="traffic != null and traffic != ''">traffic,</if>
             <if test="introduce != null and introduce != ''">introduce,</if>
@@ -36,7 +35,6 @@
             <if test="scenicSpotName != null and scenicSpotName != ''">#{scenicSpotName},</if>
             <if test="image != null and image != ''">#{image},</if>
             <if test="beginSpot != null and beginSpot != ''">#{beginSpot},</if>
-            <if test="waySpot != null and waySpot != ''">#{waySpot},</if>
             <if test="endSpot != null and endSpot != ''">#{endSpot},</if>
             <if test="traffic != null and traffic != ''">#{traffic},</if>
             <if test="introduce != null and introduce != ''">#{introduce},</if>
@@ -61,7 +59,6 @@
                 <if test="scenicSpotName != null and scenicSpotName != ''">scenic_spot_name = #{scenicSpotName},</if>
                 <if test="image != null and image != ''">image = #{image},</if>
                 <if test="beginSpot != null and beginSpot != ''">begin_spot = #{beginSpot},</if>
-                <if test="waySpot != null and waySpot != ''">way_spot = #{waySpot},</if>
                 <if test="endSpot != null and endSpot != ''">end_spot = #{endSpot},</if>
                 <if test="traffic != null and traffic != ''">traffic = #{traffic},</if>
                 <if test="introduce != null and introduce != ''">introduce = #{introduce},</if>
@@ -86,7 +83,7 @@
     <select id="selectByPage" parameterType="com.habitual.demo.touristRoutes.entity.dto.TouristRoutesPageDto" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        name, scenic_spot_name, image, begin_spot, way_spot, end_spot, traffic, introduce, start_time, price, stock, type,
+        name, scenic_spot_name, image, begin_spot, end_spot, traffic, introduce, start_time, price, stock, type,
         (SELECT COUNT(*) FROM collect WHERE collect.business_id = tourist_routes.id AND collect.type = '旅游线路') AS collect_count
         FROM tourist_routes
         WHERE 1=1
@@ -112,7 +109,7 @@
     <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
-        name, scenic_spot_name, image, begin_spot, way_spot, end_spot, traffic, introduce, start_time, price, stock, type,
+        name, scenic_spot_name, image, begin_spot, end_spot, traffic, introduce, start_time, price, stock, type,
         (SELECT COUNT(*) FROM collect WHERE collect.business_id = tourist_routes.id AND collect.type = '旅游线路') AS collect_count
         FROM tourist_routes
         WHERE 1=1

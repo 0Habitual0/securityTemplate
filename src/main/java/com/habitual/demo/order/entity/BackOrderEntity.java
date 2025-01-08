@@ -1,5 +1,6 @@
 package com.habitual.demo.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.habitual.demo.common.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import java.io.Serial;
+import java.util.Date;
 
 /**
  * 实体类 退单
@@ -84,5 +86,30 @@ public class BackOrderEntity extends BaseEntity {
      */
     @Comment("订单状态")
     private String status;
+
+    /**
+     * 订单暂存状态
+     */
+    @Comment("订单暂存状态")
+    private String stagingStatus;
+
+    /**
+     * 订单图片
+     */
+    @Comment("订单图片")
+    private String image;
+
+    /**
+     * 支付方式
+     */
+    @Comment("支付方式")
+    private String payType;
+
+    /**
+     * 预约时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+    @Comment("预约时间")
+    private Date reservationTime;
 
 }

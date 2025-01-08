@@ -13,13 +13,13 @@ public interface OrderService {
 
     CommonResponse selectRealByPage(OrderPageDto input);
 
-    CommonResponse changeStatusPaid(Long id);
+    CommonResponse changeStatusPaid(Long id, String payType);
 
     CommonResponse changeStatusComplete(Long id);
 
     CommonResponse changeStatusBackProcess(Long id);
 
-    CommonResponse changeStatusBack(Long id);
+    CommonResponse changeStatusBack(Long id, Boolean status);
 
     CommonResponse selectBackByPage(OrderPageDto input);
 

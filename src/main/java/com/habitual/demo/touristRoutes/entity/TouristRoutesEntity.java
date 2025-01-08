@@ -35,9 +35,9 @@ public class TouristRoutesEntity extends BaseEntity {
     private String name;
 
     /**
-     * 旅游景点名称
+     * 线路途径景点
      */
-    @Comment("旅游景点名称")
+    @Comment("线路途径景点")
     private String scenicSpotName;
 
     /**
@@ -51,12 +51,12 @@ public class TouristRoutesEntity extends BaseEntity {
      */
     @Comment("旅游线路出发地")
     private String beginSpot;
-
-    /**
-     * 旅游线路途径
-     */
-    @Comment("旅游线路途径")
-    private String waySpot;
+//
+//    /**
+//     * 旅游线路途径
+//     */
+//    @Comment("旅游线路途径")
+//    private String waySpot;
 
     /**
      * 旅游线路目的地

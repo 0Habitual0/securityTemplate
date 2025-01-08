@@ -48,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
             if (entity.getStock() < input.getNum()) {
                 return CommonResponse.fail("该商品库存不足");
             }
+            input.setImage(entity.getImage());
             input.setUnitPrice(entity.getPrice());
             input.setTotalPrice(entity.getPrice() * input.getNum());
             input.setRemark("景点门票订单：" + entity.getName());
@@ -61,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
             if (entity.getStock() < input.getNum()) {
                 return CommonResponse.fail("该商品库存不足");
             }
+            input.setImage(entity.getImage());
             input.setUnitPrice(entity.getPrice());
             input.setTotalPrice(entity.getPrice() * input.getNum());
             input.setRemark("旅游线路订单：" + entity.getName());
@@ -98,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public CommonResponse changeStatusPaid(Long id) {
+    public CommonResponse changeStatusPaid(Long id, String payType) {
         RealOrderEntity entity = orderMapper.selectRealById(id);
         if (entity == null) {
             return CommonResponse.fail("订单信息不存在");
@@ -106,6 +108,7 @@ public class OrderServiceImpl implements OrderService {
         if (!Objects.equals(entity.getStatus(), "未支付")) {
             return CommonResponse.fail("订单状态非待审核");
         }
+        entity.setPayType(payType);
         entity.setStatus("已支付");
         entity.setUpdateBy(UserContext.getNickname());
         entity.setUpdateTime(new Date());
@@ -136,27 +139,39 @@ public class OrderServiceImpl implements OrderService {
         entity.setStatus("退单审核中");
         entity.setUpdateBy(UserContext.getNickname());
         entity.setUpdateTime(new Date());
+        entity.setStagingStatus(entity.getStatus());
+        BackOrderEntity backOrderEntity = new BackOrderEntity();
+        BeanUtils.copyProperties(entity, backOrderEntity);
+        orderMapper.insertBack(backOrderEntity);
         return CommonResponse.success(orderMapper.updateReal(entity));
     }
 
     @Override
     @Transactional
-    public CommonResponse changeStatusBack(Long id) {
-        RealOrderEntity entity = orderMapper.selectRealById(id);
+    public CommonResponse changeStatusBack(Long id, Boolean status) {
+        BackOrderEntity entity = orderMapper.selectBackById(id);
         if (entity == null) {
             return CommonResponse.fail("订单信息不存在");
         }
         if (!Objects.equals(entity.getStatus(), "退单审核中")) {
             return CommonResponse.fail("订单状态非待审核");
         }
-        entity.setStatus("已退单");
-        entity.setUpdateBy(UserContext.getNickname());
-        entity.setUpdateTime(new Date());
-        orderMapper.deleteRealById(id);
+        if (status) {
+            entity.setStatus("已退单");
+            entity.setUpdateBy(UserContext.getNickname());
+            entity.setUpdateTime(new Date());
+            orderMapper.deleteRealById(id);
+            return CommonResponse.success(orderMapper.insertBack(entity));
+        } else {
 
-        BackOrderEntity backOrderEntity = new BackOrderEntity();
-        BeanUtils.copyProperties(entity, backOrderEntity);
-        return CommonResponse.success(orderMapper.insertBack(backOrderEntity));
+            RealOrderEntity realOrderEntity = new RealOrderEntity();
+            BeanUtils.copyProperties(entity, realOrderEntity);
+            entity.setStatus(entity.getStagingStatus());
+            entity.setUpdateBy(UserContext.getNickname());
+            entity.setUpdateTime(new Date());
+            orderMapper.deleteBackById(id);
+            return CommonResponse.success(orderMapper.updateReal(realOrderEntity));
+        }
     }
 
     @Override
