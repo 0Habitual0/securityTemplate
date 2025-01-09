@@ -22,4 +22,6 @@ public interface TouristGuideCarouselImageMapper {
 
     List<TouristGuideCarouselImageEntity> selectByPage(TouristGuideCarouselImagePageDto input);
 
+    List<TouristGuideCarouselImageEntity> selectByBusinessId(Long businessId);
+
 }

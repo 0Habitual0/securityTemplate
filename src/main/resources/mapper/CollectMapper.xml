@@ -7,9 +7,9 @@
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
-            create_time,
+            <if test="createTime != null">create_time,</if>
             <if test="updateBy != null and updateBy != ''">update_by,</if>
-            update_time,
+            <if test="updateTime != null">update_time,</if>
             <if test="remark != null and remark != ''">remark,</if>
             <if test="businessId != null and businessId != ''">business_id,</if>
             <if test="userId != null">user_id,</if>
@@ -19,9 +19,9 @@
         <trim suffixOverrides=",">
             <if test="id != null">#{id},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
-            #{createTime},
+            <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
-            #{updateTime},
+            <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
             <if test="businessId != null and businessId != ''">#{businessId},</if>
             <if test="userId != null">#{userId},</if>

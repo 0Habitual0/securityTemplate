@@ -7,9 +7,9 @@
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
-            create_time,
+            <if test="createTime != null">create_time,</if>
             <if test="updateBy != null and updateBy != ''">update_by,</if>
-            update_time,
+            <if test="updateTime != null">update_time,</if>
             <if test="remark != null and remark != ''">remark,</if>
             <if test="url != null and url != ''">url,</if>
             <if test="businessId != null and businessId != ''">business_id,</if>
@@ -18,9 +18,9 @@
         <trim suffixOverrides=",">
             <if test="id != null">#{id},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
-            #{createTime},
+            <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
-            #{updateTime},
+            <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
             <if test="url != null and url != ''">#{url},</if>
             <if test="businessId != null and businessId != ''">#{businessId},</if>
@@ -33,9 +33,9 @@
         <set>
             <trim suffixOverrides=",">
                 <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
-                create_time = #{createTime},
+                <if test="createTime != null">create_time = #{createTime},</if>
                 <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-                update_time = #{updateTime},
+                <if test="updateTime != null">update_time = #{updateTime},</if>
                 <if test="remark != null and remark != ''">remark = #{remark},</if>
                 <if test="url != null and url != ''">url = #{url},</if>
                 <if test="businessId != null and businessId != ''">business_id = #{businessId},</if>
@@ -73,6 +73,18 @@
         </if>
         ORDER BY create_time DESC
         LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectByBusinessId" parameterType="com.habitual.demo.touristGuide.entity.dto.TouristGuideCarouselImagePageDto" resultType="com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity">
+        SELECT
+        id, create_by, create_time, update_by, update_time, remark,
+        url, business_id
+        FROM tourist_guide_carousel_image
+        WHERE 1=1
+        <if test="businessId != null and businessId != ''">
+            AND business_id = #{businessId}
+        </if>
+        ORDER BY create_time DESC
     </select>
 
 </mapper>

@@ -65,8 +65,8 @@ public class TouristGuideServiceImpl implements TouristGuideService {
         }
         TouristGuideDetailDto touristGuideDetailDto = new TouristGuideDetailDto();
         BeanUtils.copyProperties(entity, touristGuideDetailDto);
-        // TODO
-        touristGuideDetailDto.setCarouselImage(new ArrayList<>());
+        List<TouristGuideCarouselImageEntity> touristGuideCarouselImageEntities = touristGuideImageMapper.selectByBusinessId(id);
+        touristGuideDetailDto.setCarouselImage(touristGuideCarouselImageEntities.stream().map(TouristGuideCarouselImageEntity::getUrl).collect(Collectors.toList()));
         return CommonResponse.success(touristGuideDetailDto);
     }
 

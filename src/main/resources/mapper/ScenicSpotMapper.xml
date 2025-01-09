@@ -7,9 +7,9 @@
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
-            create_time,
+            <if test="createTime != null">create_time,</if>
             <if test="updateBy != null and updateBy != ''">update_by,</if>
-            update_time,
+            <if test="updateTime != null">update_time,</if>
             <if test="remark != null and remark != ''">remark,</if>
             <if test="name != null and name != ''">name,</if>
             <if test="type != null and type != ''">type,</if>
@@ -27,9 +27,9 @@
         <trim suffixOverrides=",">
             <if test="id != null">#{id},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
-            #{createTime},
+            <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
-            #{updateTime},
+            <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
             <if test="name != null and name != ''">#{name},</if>
             <if test="type != null and type != ''">#{type},</if>
@@ -51,9 +51,9 @@
         <set>
             <trim suffixOverrides=",">
                 <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
-                create_time = #{createTime},
+                <if test="createTime != null">create_time = #{createTime},</if>
                 <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-                update_time = #{updateTime},
+                <if test="updateTime != null">update_time = #{updateTime},</if>
                 <if test="remark != null and remark != ''">remark = #{remark},</if>
                 <if test="name != null and name != ''">name = #{name},</if>
                 <if test="type != null and type != ''">type = #{type},</if>
