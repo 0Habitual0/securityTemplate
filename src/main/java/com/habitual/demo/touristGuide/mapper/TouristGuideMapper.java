@@ -28,4 +28,6 @@ public interface TouristGuideMapper {
 
     List<String> selectTypeList();
 
+    List<TouristGuideEntity> getDropList();
+
 }

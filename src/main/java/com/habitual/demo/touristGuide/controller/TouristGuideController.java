@@ -65,4 +65,12 @@ public class TouristGuideController {
         return touristGuideService.selectTypeList();
     }
 
+    /**
+     * 获取资讯下拉框列表
+     */
+    @GetMapping("getDropList")
+    public CommonResponse getDropList() {
+        return touristGuideService.getDropList();
+    }
+
 }

@@ -111,4 +111,8 @@
         SELECT DISTINCT type FROM tourist_guide;
     </select>
 
+    <select id="getDropList">
+        select id, title from tourist_guide;
+    </select>
+
 </mapper>

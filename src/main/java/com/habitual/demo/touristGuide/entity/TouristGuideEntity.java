@@ -61,6 +61,6 @@ public class TouristGuideEntity extends BaseEntity {
      */
     @Transient
     @Comment("收藏数量")
-    private int collectCount;
+    private Integer collectCount;
 
 }
