@@ -1,9 +1,11 @@
 package com.habitual.demo.touristGuide.service.impl;
 
-import com.habitual.demo.hotel.entity.HotelEntity;
+import com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity;
 import com.habitual.demo.touristGuide.entity.TouristGuideEntity;
+import com.habitual.demo.touristGuide.entity.dto.TouristGuideCarouselImagePageDto;
 import com.habitual.demo.touristGuide.entity.dto.TouristGuideDetailDto;
 import com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto;
+import com.habitual.demo.touristGuide.mapper.TouristGuideCarouselImageMapper;
 import com.habitual.demo.touristGuide.mapper.TouristGuideMapper;
 import com.habitual.demo.touristGuide.service.TouristGuideService;
 import com.habitual.demo.collect.entity.CollectEntity;
@@ -29,6 +31,9 @@ public class TouristGuideServiceImpl implements TouristGuideService {
 
     @Autowired
     private TouristGuideMapper touristGuideMapper;
+
+    @Autowired
+    private TouristGuideCarouselImageMapper touristGuideImageMapper;
 
     @Autowired
     private CollectServiceImpl collectService;
@@ -110,6 +115,40 @@ public class TouristGuideServiceImpl implements TouristGuideService {
     @Override
     public CommonResponse getDropList() {
         return CommonResponse.success(touristGuideMapper.getDropList());
+    }
+
+    @Override
+    public CommonResponse saveCarouseImage(TouristGuideCarouselImageEntity input) {
+        if (Objects.equals(input.getId(), null)) {
+            input.setCreateBy(UserContext.getNickname());
+            input.setCreateTime(new Date());
+            return CommonResponse.success(touristGuideImageMapper.insert(input));
+        } else {
+            input.setUpdateBy(UserContext.getNickname());
+            input.setUpdateTime(new Date());
+            return CommonResponse.success(touristGuideImageMapper.update(input));
+        }
+    }
+
+    @Override
+    public CommonResponse deleteCarouseImage(Long id) {
+        return CommonResponse.success(touristGuideImageMapper.delete(id));
+    }
+
+    @Override
+    public CommonResponse selectByPageCarouseImage(TouristGuideCarouselImagePageDto input) {
+        input.setOffset((input.getPageNum() - 1) * input.getPageSize());
+        List<TouristGuideCarouselImageEntity> list = touristGuideImageMapper.selectByPage(input);
+        int totalCount = touristGuideImageMapper.getTotalCount();
+
+        int pages = (int) Math.ceil((double) totalCount / input.getPageSize());
+
+        PageResult<TouristGuideCarouselImageEntity> result = new PageResult<>();
+        result.setData(list);
+        result.setTotalCount(totalCount);
+        result.setPages(pages);
+
+        return CommonResponse.success(result);
     }
 
 }

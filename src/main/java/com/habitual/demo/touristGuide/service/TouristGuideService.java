@@ -1,6 +1,8 @@
 package com.habitual.demo.touristGuide.service;
 
+import com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity;
 import com.habitual.demo.touristGuide.entity.TouristGuideEntity;
+import com.habitual.demo.touristGuide.entity.dto.TouristGuideCarouselImagePageDto;
 import com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto;
 import com.habitual.demo.common.entity.CommonResponse;
 
@@ -22,5 +24,11 @@ public interface TouristGuideService {
     CommonResponse selectTypeList();
 
     CommonResponse getDropList();
+
+    CommonResponse saveCarouseImage(TouristGuideCarouselImageEntity input);
+
+    CommonResponse deleteCarouseImage(Long id);
+
+    CommonResponse selectByPageCarouseImage(TouristGuideCarouselImagePageDto input);
 
 }

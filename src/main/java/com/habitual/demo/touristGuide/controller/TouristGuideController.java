@@ -1,7 +1,9 @@
 package com.habitual.demo.touristGuide.controller;
 
 import com.habitual.demo.common.entity.CommonResponse;
+import com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity;
 import com.habitual.demo.touristGuide.entity.TouristGuideEntity;
+import com.habitual.demo.touristGuide.entity.dto.TouristGuideCarouselImagePageDto;
 import com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto;
 import com.habitual.demo.touristGuide.service.TouristGuideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,30 @@ public class TouristGuideController {
     @GetMapping("getDropList")
     public CommonResponse getDropList() {
         return touristGuideService.getDropList();
+    }
+
+    /**
+     * 新增/修改轮播图
+     */
+    @PostMapping("saveCarouseImage")
+    public CommonResponse saveCarouseImage(@RequestBody TouristGuideCarouselImageEntity input) {
+        return touristGuideService.saveCarouseImage(input);
+    }
+
+    /**
+     * 删除轮播图
+     */
+    @GetMapping("deleteCarouseImage")
+    public CommonResponse deleteCarouseImage(@RequestParam Long id) {
+        return touristGuideService.deleteCarouseImage(id);
+    }
+
+    /**
+     * 分页查询轮播图
+     */
+    @PostMapping("selectByPageCarouseImage")
+    public CommonResponse selectByPageCarouseImage(@RequestBody TouristGuideCarouselImagePageDto input) {
+        return touristGuideService.selectByPageCarouseImage(input);
     }
 
 }
