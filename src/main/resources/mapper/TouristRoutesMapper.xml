@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.touristRoutes.mapper.TouristRoutesMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.touristRoutes.mapper.TouristRoutesMapper">
 
-    <insert id="insert" parameterType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.yt.YcTravelManageSystem.touristRoutes.entity.TouristRoutesEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tourist_routes (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -46,7 +46,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
+    <update id="update" parameterType="com.yt.YcTravelManageSystem.touristRoutes.entity.TouristRoutesEntity">
         UPDATE tourist_routes
         <set>
             <trim suffixOverrides=",">
@@ -80,7 +80,7 @@
         SELECT COUNT(*) FROM tourist_routes
     </select>
 
-    <select id="selectByPage" parameterType="com.habitual.demo.touristRoutes.entity.dto.TouristRoutesPageDto" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
+    <select id="selectByPage" parameterType="com.yt.YcTravelManageSystem.touristRoutes.entity.dto.TouristRoutesPageDto" resultType="com.yt.YcTravelManageSystem.touristRoutes.entity.TouristRoutesEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         name, scenic_spot_name, image, begin_spot, end_spot, traffic, introduce, start_time, price, stock, type,
@@ -106,7 +106,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
+    <select id="selectByIdIn" parameterType="list" resultType="com.yt.YcTravelManageSystem.touristRoutes.entity.TouristRoutesEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         name, scenic_spot_name, image, begin_spot, end_spot, traffic, introduce, start_time, price, stock, type,
@@ -123,7 +123,7 @@
         SELECT DISTINCT type FROM tourist_routes;
     </select>
 
-    <select id="selectById" resultType="com.habitual.demo.touristRoutes.entity.TouristRoutesEntity">
+    <select id="selectById" resultType="com.yt.YcTravelManageSystem.touristRoutes.entity.TouristRoutesEntity">
         SELECT * FROM tourist_routes
         WHERE 1=1
           AND id = #{id}

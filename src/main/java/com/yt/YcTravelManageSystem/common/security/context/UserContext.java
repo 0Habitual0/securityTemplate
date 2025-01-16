@@ -1,0 +1,44 @@
+package com.yt.YcTravelManageSystem.common.security.context;
+
+import com.yt.YcTravelManageSystem.common.entity.UserInfo;
+import com.yt.YcTravelManageSystem.common.exception.TokenValidationException;
+
+/**
+ * 线程局部变量类 获取用户信息
+ */
+public class UserContext {
+
+    private static final ThreadLocal<UserInfo> userHolder = new ThreadLocal<>();
+
+    public static void setUser(UserInfo user) {
+        userHolder.set(user);
+    }
+
+    private static UserInfo getUser() {
+        if (userHolder.get() == null) {
+            throw new TokenValidationException("用户信息不存在。请重新登录", 50008);
+        }
+        return userHolder.get();
+    }
+
+    public static Long getId() {
+        return getUser().getId();
+    }
+
+    public static String getUsername() {
+        return getUser().getUsername();
+    }
+
+    public static String getNickname() {
+        return getUser().getNickname();
+    }
+
+    public static String getRole() {
+        return getUser().getRole();
+    }
+
+    public static void clear() {
+        userHolder.remove();
+    }
+
+}

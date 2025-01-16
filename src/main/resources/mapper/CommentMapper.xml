@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.comment.mapper.CommentMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.comment.mapper.CommentMapper">
 
-    <insert id="insert" parameterType="com.habitual.demo.comment.entity.CommentEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.yt.YcTravelManageSystem.comment.entity.CommentEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO comment (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -46,7 +46,7 @@
             AND parent_id IS NULL
     </select>
 
-    <select id="selectByPage" parameterType="com.habitual.demo.comment.entity.dto.CommentPageDto" resultType="com.habitual.demo.comment.entity.CommentEntity">
+    <select id="selectByPage" parameterType="com.yt.YcTravelManageSystem.comment.entity.dto.CommentPageDto" resultType="com.yt.YcTravelManageSystem.comment.entity.CommentEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         business_id, parent_id, type, user_id
@@ -75,7 +75,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByParentIdIn" resultType="com.habitual.demo.comment.entity.CommentEntity">
+    <select id="selectByParentIdIn" resultType="com.yt.YcTravelManageSystem.comment.entity.CommentEntity">
         SELECT * FROM comment
         WHERE parent_id IN
         <foreach item="id" collection="parentIds" open="(" separator="," close=")">

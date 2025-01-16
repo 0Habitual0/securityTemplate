@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.collect.mapper.CollectMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.collect.mapper.CollectMapper">
 
-    <insert id="insert" parameterType="com.habitual.demo.collect.entity.CollectEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.yt.YcTravelManageSystem.collect.entity.CollectEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO collect (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -37,14 +37,14 @@
           AND type = #{type}
     </delete>
 
-    <select id="selectByUserIdAndBusinessIdAndType" resultType="com.habitual.demo.collect.entity.CollectEntity">
+    <select id="selectByUserIdAndBusinessIdAndType" resultType="com.yt.YcTravelManageSystem.collect.entity.CollectEntity">
         SELECT * FROM collect
         WHERE user_id = #{userId}
           AND business_id = #{businessId}
           AND type = #{type}
     </select>
 
-    <select id="findAll" resultType="com.habitual.demo.collect.entity.CollectEntity">
+    <select id="findAll" resultType="com.yt.YcTravelManageSystem.collect.entity.CollectEntity">
         SELECT * FROM collect
     </select>
 
@@ -59,7 +59,7 @@
           AND type = #{type}
     </select>
 
-    <select id="selectByPageAndUserIdAndType" resultType="com.habitual.demo.collect.entity.CollectEntity">
+    <select id="selectByPageAndUserIdAndType" resultType="com.yt.YcTravelManageSystem.collect.entity.CollectEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         business_id, type, user_id

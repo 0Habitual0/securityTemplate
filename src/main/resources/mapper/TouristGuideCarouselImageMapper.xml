@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.touristGuide.mapper.TouristGuideCarouselImageMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.touristGuide.mapper.TouristGuideCarouselImageMapper">
 
-    <insert id="insert" parameterType="com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideCarouselImageEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tourist_guide_carousel_image (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -28,7 +28,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity">
+    <update id="update" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideCarouselImageEntity">
         UPDATE tourist_guide_carousel_image
         <set>
             <trim suffixOverrides=",">
@@ -53,7 +53,7 @@
         SELECT COUNT(*) FROM tourist_guide_carousel_image
     </select>
 
-    <select id="selectByPage" parameterType="com.habitual.demo.touristGuide.entity.dto.TouristGuideCarouselImagePageDto" resultType="com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity">
+    <select id="selectByPage" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.dto.TouristGuideCarouselImagePageDto" resultType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideCarouselImageEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         url, business_id
@@ -75,7 +75,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByBusinessId" parameterType="com.habitual.demo.touristGuide.entity.dto.TouristGuideCarouselImagePageDto" resultType="com.habitual.demo.touristGuide.entity.TouristGuideCarouselImageEntity">
+    <select id="selectByBusinessId" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.dto.TouristGuideCarouselImagePageDto" resultType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideCarouselImageEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         url, business_id

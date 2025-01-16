@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.hotel.mapper.HotelMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.hotel.mapper.HotelMapper">
 
-    <insert id="insert" parameterType="com.habitual.demo.hotel.entity.HotelEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.yt.YcTravelManageSystem.hotel.entity.HotelEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO hotel (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -38,7 +38,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.habitual.demo.hotel.entity.HotelEntity">
+    <update id="update" parameterType="com.yt.YcTravelManageSystem.hotel.entity.HotelEntity">
         UPDATE hotel
         <set>
             <trim suffixOverrides=",">
@@ -64,7 +64,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="selectById" resultType="com.habitual.demo.hotel.entity.HotelEntity">
+    <select id="selectById" resultType="com.yt.YcTravelManageSystem.hotel.entity.HotelEntity">
         SELECT * FROM hotel
         WHERE 1=1
           AND id = #{id}
@@ -74,7 +74,7 @@
         SELECT COUNT(*) FROM hotel
     </select>
 
-    <select id="selectByPage" parameterType="com.habitual.demo.hotel.entity.dto.HotelPageDto" resultType="com.habitual.demo.hotel.entity.HotelEntity">
+    <select id="selectByPage" parameterType="com.yt.YcTravelManageSystem.hotel.entity.dto.HotelPageDto" resultType="com.yt.YcTravelManageSystem.hotel.entity.HotelEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         image, introduce, location, name, tel, type, url,
@@ -103,7 +103,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.hotel.entity.HotelEntity">
+    <select id="selectByIdIn" parameterType="list" resultType="com.yt.YcTravelManageSystem.hotel.entity.HotelEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         image, introduce, location, name, tel, type, url,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.touristGuide.mapper.TouristGuideMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.touristGuide.mapper.TouristGuideMapper">
 
-    <insert id="insert" parameterType="com.habitual.demo.touristGuide.entity.TouristGuideEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tourist_guide (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -34,7 +34,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+    <update id="update" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideEntity">
         UPDATE tourist_guide
         <set>
             <trim suffixOverrides=",">
@@ -58,7 +58,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="selectById" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+    <select id="selectById" resultType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideEntity">
         SELECT * FROM tourist_guide
         WHERE 1=1
           AND id = #{id}
@@ -68,7 +68,7 @@
         SELECT COUNT(*) FROM tourist_guide
     </select>
 
-    <select id="selectByPage" parameterType="com.habitual.demo.touristGuide.entity.dto.TouristGuidePageDto" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+    <select id="selectByPage" parameterType="com.yt.YcTravelManageSystem.touristGuide.entity.dto.TouristGuidePageDto" resultType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         user_id, title, context, image, type,
@@ -94,7 +94,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByIdIn" parameterType="list" resultType="com.habitual.demo.touristGuide.entity.TouristGuideEntity">
+    <select id="selectByIdIn" parameterType="list" resultType="com.yt.YcTravelManageSystem.touristGuide.entity.TouristGuideEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         user_id, title, context, image, type,

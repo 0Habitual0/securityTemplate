@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.habitual.demo.order.mapper.OrderMapper">
+<mapper namespace="com.yt.YcTravelManageSystem.order.mapper.OrderMapper">
 
-    <insert id="insertReal" parameterType="com.habitual.demo.order.entity.RealOrderEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertReal" parameterType="com.yt.YcTravelManageSystem.order.entity.RealOrderEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO real_order (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -52,7 +52,7 @@
         )
     </insert>
 
-    <select id="selectRealByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.RealOrderEntity">
+    <select id="selectRealByPage" parameterType="com.yt.YcTravelManageSystem.order.entity.dto.OrderPageDto" resultType="com.yt.YcTravelManageSystem.order.entity.RealOrderEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
@@ -103,8 +103,36 @@
           AND id = #{id}
     </select>
 
-    <update id="updateReal" parameterType="com.habitual.demo.order.entity.RealOrderEntity">
+    <update id="updateReal" parameterType="com.yt.YcTravelManageSystem.order.entity.RealOrderEntity">
         UPDATE real_order
+        <set>
+            <trim suffixOverrides=",">
+                <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+                <if test="createTime != null">create_time = #{createTime},</if>
+                <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+                <if test="updateTime != null">update_time = #{updateTime},</if>
+                <if test="remark != null and remark != ''">remark = #{remark},</if>
+                <if test="businessId != null">business_id = #{businessId},</if>
+                <if test="userId != null">user_id = #{userId},</if>
+                <if test="tel != null and tel != ''">tel = #{tel},</if>
+                <if test="realName != null and realName != ''">real_name = #{realName},</if>
+                <if test="orderCode != null and orderCode != ''">order_code = #{orderCode},</if>
+                <if test="unitPrice != null">unit_price = #{unitPrice},</if>
+                <if test="totalPrice != null">total_price = #{totalPrice},</if>
+                <if test="num != null">num = #{num},</if>
+                <if test="type != null and type != ''">type = #{type},</if>
+                <if test="status != null and status != ''">status = #{status},</if>
+                <if test="stagingStatus != null and stagingStatus != ''">staging_status = #{stagingStatus},</if>
+                <if test="image != null and image != ''">image = #{image},</if>
+                <if test="payType != null and payType != ''">pay_type = #{payType},</if>
+                <if test="reservationTime != null">reservation_time = #{reservationTime},</if>
+            </trim>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBack" parameterType="com.yt.YcTravelManageSystem.order.entity.BackOrderEntity">
+        UPDATE back_order
         <set>
             <trim suffixOverrides=",">
                 <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
@@ -143,7 +171,7 @@
           AND id = #{id}
     </delete>
 
-    <insert id="insertBack" parameterType="com.habitual.demo.order.entity.BackOrderEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertBack" parameterType="com.yt.YcTravelManageSystem.order.entity.BackOrderEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO back_order (
         <trim suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -201,7 +229,7 @@
         </if>
     </select>
 
-    <select id="selectBackByPage" parameterType="com.habitual.demo.order.entity.dto.OrderPageDto" resultType="com.habitual.demo.order.entity.BackOrderEntity">
+    <select id="selectBackByPage" parameterType="com.yt.YcTravelManageSystem.order.entity.dto.OrderPageDto" resultType="com.yt.YcTravelManageSystem.order.entity.BackOrderEntity">
         SELECT
         id, create_by, create_time, update_by, update_time, remark,
         business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
@@ -232,7 +260,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByTypeAndCreateTimeAfter" resultType="com.habitual.demo.order.entity.RealOrderEntity">
+    <select id="selectByTypeAndCreateTimeAfter" resultType="com.yt.YcTravelManageSystem.order.entity.RealOrderEntity">
         SELECT
             id, create_by, create_time, update_by, update_time, remark,
             business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time
@@ -242,7 +270,7 @@
           AND create_time >= #{createTimeAfter}
     </select>
 
-    <select id="findAllReal" resultType="com.habitual.demo.order.entity.RealOrderEntity">
+    <select id="findAllReal" resultType="com.yt.YcTravelManageSystem.order.entity.RealOrderEntity">
         SELECT
             id, create_by, create_time, update_by, update_time, remark,
             business_id, user_id, tel, real_name, order_code, unit_price, total_price, num, type, status, staging_status, image, pay_type, reservation_time

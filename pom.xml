@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <groupId>com.habitual</groupId>
-    <artifactId>securityTemplate</artifactId>
+    <artifactId>YcTravelManageSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>securityTemplate</name>
     <description>securityTemplate</description>
