@@ -6,6 +6,10 @@ spring:
     url: jdbc:mysql://localhost:3306/securityTemplate?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: 123456
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
   jpa:
     open-in-view: false
     hibernate:

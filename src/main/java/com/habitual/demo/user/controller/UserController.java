@@ -27,11 +27,11 @@ public class UserController {
     }
 
     /**
-     * 找回密码
+     * 登录
      */
-    @PostMapping("recoverPassword")
-    public CommonResponse recoverPassword(@RequestBody UserEntity userEntity) {
-        return userService.recoverPassword(userEntity);
+    @PostMapping("login")
+    public CommonResponse login(@RequestBody UserEntity userEntity) {
+        return userService.login(userEntity.getUsername(), userEntity.getPassword());
     }
 
     /**
@@ -43,11 +43,11 @@ public class UserController {
     }
 
     /**
-     * 登录
+     * 找回密码
      */
-    @PostMapping("login")
-    public CommonResponse login(@RequestBody UserEntity userEntity) {
-        return userService.login(userEntity.getUsername(), userEntity.getPassword());
+    @PostMapping("recoverPassword")
+    public CommonResponse recoverPassword(@RequestBody UserEntity userEntity) {
+        return userService.recoverPassword(userEntity);
     }
 
     /**

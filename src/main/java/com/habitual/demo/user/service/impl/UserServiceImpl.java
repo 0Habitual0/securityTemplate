@@ -47,19 +47,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommonResponse recoverPassword(UserEntity input) {
-        // 检查登录账号是否存在
-        UserEntity existingUser = userRepository.findByUsername(input.getUsername());
+    public CommonResponse login(String username, String password) {
+        // 检查登录账号密码是否正确
+        UserEntity existingUser = userRepository.findByUsernameAndPassword(username, password);
         if (existingUser == null) {
-            return CommonResponse.fail("登录账号不存在");
+            return CommonResponse.fail("用户名或密码错误");
         }
-        if (!Objects.equals(existingUser.getEmail(), input.getEmail())) {
-            return CommonResponse.fail("邮箱不正确");
+        if (Objects.equals(existingUser.getStatus(), 1L)) {
+            return CommonResponse.fail("账户已被禁用，请联系管理员");
         }
-        existingUser.setPassword(input.getPassword());
-        userRepository.save(existingUser);
-        jwtTokenUtil.deleteToken(existingUser.getUsername());
-        return CommonResponse.success("修改成功");
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(existingUser.getId());
+        userInfo.setUsername(existingUser.getUsername());
+        userInfo.setNickname(existingUser.getNickname());
+        return CommonResponse.success(jwtTokenUtil.getToken(userInfo));
     }
 
     @Override
@@ -79,20 +80,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommonResponse login(String username, String password) {
-        // 检查登录账号密码是否正确
-        UserEntity existingUser = userRepository.findByUsernameAndPassword(username, password);
+    public CommonResponse recoverPassword(UserEntity input) {
+        // 检查登录账号是否存在
+        UserEntity existingUser = userRepository.findByUsername(input.getUsername());
         if (existingUser == null) {
-            return CommonResponse.fail("用户名或密码错误");
+            return CommonResponse.fail("登录账号不存在");
         }
-        if (Objects.equals(existingUser.getStatus(), 1L)) {
-            return CommonResponse.fail("账户已被禁用，请联系管理员");
+        if (!Objects.equals(existingUser.getEmail(), input.getEmail())) {
+            return CommonResponse.fail("邮箱不正确");
         }
-        UserInfo userInfo = new UserInfo();
-        userInfo.setId(existingUser.getId());
-        userInfo.setUsername(existingUser.getUsername());
-        userInfo.setNickname(existingUser.getNickname());
-        return CommonResponse.success(jwtTokenUtil.getToken(userInfo));
+        existingUser.setPassword(input.getPassword());
+        userRepository.save(existingUser);
+        jwtTokenUtil.deleteToken(existingUser.getUsername());
+        return CommonResponse.success("修改成功");
     }
 
     @Override
@@ -162,8 +162,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResponse dropDownList() {
-        List<UserEntity> healthDataEntityList = userRepository.findAll();
-        List<UserDropDownListDto> userDTOList = healthDataEntityList.stream()
+        List<UserEntity> userEntityList = userRepository.findAll();
+        List<UserDropDownListDto> userDTOList = userEntityList.stream()
                 .map(user -> new UserDropDownListDto(user.getId(), user.getUsername(), user.getNickname()))
                 .toList();
         return CommonResponse.success(userDTOList);

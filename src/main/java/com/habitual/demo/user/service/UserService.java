@@ -12,11 +12,11 @@ public interface UserService {
 
     CommonResponse register(UserEntity input);
 
-    CommonResponse recoverPassword(UserEntity input);
+    CommonResponse login(String username, String password);
 
     CommonResponse changePassword(UserChangePasswordDto input);
 
-    CommonResponse login(String username, String password);
+    CommonResponse recoverPassword(UserEntity input);
 
     CommonResponse info();
 
