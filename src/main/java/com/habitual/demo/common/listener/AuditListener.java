@@ -4,6 +4,9 @@ import com.habitual.demo.common.entity.BaseEntity;
 import com.habitual.demo.common.security.context.UserContext;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
 
@@ -15,20 +18,26 @@ public class AuditListener {
     @PrePersist
     public void setCreatedAtAndCreatedBy(BaseEntity entity) {
         entity.setCreateTime(new Date());
-        entity.setCreateBy(getCurrentUser());
+        if (shouldAudit()) {
+            entity.setCreateBy(getCurrentUser());
+        }
     }
 
     @PreUpdate
     public void setUpdatedAtAndUpdatedBy(BaseEntity entity) {
         entity.setUpdateTime(new Date());
-        entity.setUpdateBy(getCurrentUser());
+        if (shouldAudit()) {
+            entity.setUpdateBy(getCurrentUser());
+        }
     }
 
-    /**
-     * 获取当前线程用户名
-     */
+    private boolean shouldAudit() {
+        // 检查是否需要身份验证
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken);
+    }
+
     private String getCurrentUser() {
         return UserContext.getNickname();
     }
-
 }
