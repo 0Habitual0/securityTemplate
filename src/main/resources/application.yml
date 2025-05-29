@@ -27,5 +27,13 @@ server:
   port: 10100
 
 system:
+  security:
+    permitUrls:
+      - "/user/login"
+      - "/user/register"
+      - "/user/recoverPassword"
+      - "/file/upload"
+    maximumSessions: 1
+    maxSessionsPreventsLogin: false
   custom:
     jwtSecretKey: u7ydpT2P3eVf6W8xN9sKrG4tQ1vZw5bA6hXmJkCcRfM

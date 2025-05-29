@@ -1,10 +1,10 @@
 package com.habitual.demo.common.config;
 
+import com.habitual.demo.common.security.Properties.SecurityProperties;
 import com.habitual.demo.common.security.session.CustomSessionInformationExpiredStrategy;
 import com.habitual.demo.common.security.filter.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,20 +21,27 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * 注入 SecurityProperties 配置类，用于获取安全相关的配置
+     */
+    private final SecurityProperties securityProperties;
+
+    public SecurityConfig(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(AbstractHttpConfigurer::disable) // 禁用 CORS防护（跨域资源共享）
                 .csrf(AbstractHttpConfigurer::disable) // 禁用 CSRF防护（跨站请求伪造）
                 .authorizeHttpRequests(authorize -> authorize // HTTP 请求授权
-                        .requestMatchers(HttpMethod.POST, "/user/login", "/user/register", "/user/recoverPassword", "/file/upload")
-                        .permitAll() // 允许路径的请求不进行身份验证
-                        .requestMatchers("/uploads/**").permitAll() // 允许访问/uploads/路径下的所有资源(在WebConfig中配置了映射)
+                        .requestMatchers(securityProperties.getPermitUrls().toArray(new String[0])).permitAll() // 允许路径的请求不进行身份验证, 允许访问/uploads/路径下的所有资源(在WebConfig中配置了映射)
                         .anyRequest().authenticated() // 其他所有请求都需要身份验证
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
-                        .maximumSessions(1) // 设置同一用户最多允许的会话数
-                        .maxSessionsPreventsLogin(false) // false表示后登录的用户会顶掉先登录的用户 和sessionInformationExpiredStrategy搭配使用
+                        .maximumSessions(securityProperties.getMaximumSessions()) // 设置同一用户最多允许的会话数
+                        .maxSessionsPreventsLogin(securityProperties.isMaxSessionsPreventsLogin()) // false表示后登录的用户会顶掉先登录的用户 和sessionInformationExpiredStrategy搭配使用
                         .sessionRegistry(sessionRegistry())
                         .expiredSessionStrategy(sessionInformationExpiredStrategy()) // 重写过期策略
                 )
