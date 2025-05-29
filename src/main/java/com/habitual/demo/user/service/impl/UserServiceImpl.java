@@ -11,6 +11,8 @@ import com.habitual.demo.user.entity.dto.UserInfoDto;
 import com.habitual.demo.user.entity.dto.UserPageDto;
 import com.habitual.demo.user.repository.UserRepository;
 import com.habitual.demo.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,8 @@ import java.util.Objects;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -53,7 +57,7 @@ public class UserServiceImpl implements UserService {
         if (existingUser == null) {
             return CommonResponse.fail("用户名或密码错误");
         }
-        if (Objects.equals(existingUser.getStatus(), 1L)) {
+        if (!Objects.equals(existingUser.getStatus(), 1L)) {
             return CommonResponse.fail("账户已被禁用，请联系管理员");
         }
         UserInfo userInfo = new UserInfo();

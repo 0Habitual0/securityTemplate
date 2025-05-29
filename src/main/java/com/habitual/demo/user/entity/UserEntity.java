@@ -18,7 +18,7 @@ import java.io.Serial;
 @Setter
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
-@Comment("用户")
+@Comment("用户表")
 public class UserEntity extends BaseEntity {
 
     /**
@@ -83,9 +83,9 @@ public class UserEntity extends BaseEntity {
     private String role;
 
     /**
-     * 状态 0启用 1禁用
+     * 状态 0禁用 1启用
      */
-    @Comment("状态 0启用 1禁用")
+    @Comment("状态 0禁用 1启用")
     private Long status;
 
 }
