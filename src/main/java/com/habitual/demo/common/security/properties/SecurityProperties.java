@@ -20,7 +20,7 @@ public class SecurityProperties {
     private List<String> permitUrls;
 
     // 同一用户最多允许的会话数
-    private int maximumSessions = 1;
+    private int maximumSessions;
 
     // false表示后登录的用户会顶掉先登录的用户 和sessionInformationExpiredStrategy搭配使用
     private boolean maxSessionsPreventsLogin = false;
