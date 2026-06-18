@@ -41,10 +41,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             } catch (TokenValidationException ex) {
                 // 过滤器无法被监听，主动调用异常处理
                 exceptionHandlerService.handleTokenValidationException(response, ex);
+                UserContext.clear();
                 return;
             }
         }
-        filterChain.doFilter(request, response);
+        try {
+            filterChain.doFilter(request, response);
+        } finally {
+            UserContext.clear();
+        }
     }
 
     // 创建简单的认证对象，包含用户名和角色信息

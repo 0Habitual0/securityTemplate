@@ -1,4 +1,4 @@
-package com.habitual.demo.common.security.Properties;
+package com.habitual.demo.common.security.properties;
 
 import lombok.Getter;
 import lombok.Setter;

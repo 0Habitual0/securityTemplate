@@ -1,6 +1,6 @@
 package com.habitual.demo.common.config;
 
-import com.habitual.demo.common.security.Properties.SecurityProperties;
+import com.habitual.demo.common.security.properties.SecurityProperties;
 import com.habitual.demo.common.security.session.CustomSessionInformationExpiredStrategy;
 import com.habitual.demo.common.security.filter.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
